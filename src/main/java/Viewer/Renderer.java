@@ -18,7 +18,6 @@ public class Renderer implements Runnable{
     boolean continueRendering = true;
 
     int currentFramerate = 0;
-    int updateFramerateInterval = 1;
 
     public Renderer(Stage stage) {
         this.stage = stage;
@@ -51,20 +50,20 @@ public class Renderer implements Runnable{
         long now;
         long timeOfLastCount = 0L;
         while (continueRendering) {
-            // render stuff
+            // render background
 
+            // render game
+
+            // render ui
 
             framesInTheLastSecond++;
             now = System.currentTimeMillis();
-            if (now - (1000/updateFramerateInterval) > timeOfLastCount) {
-                this.currentFramerate = (int)((framesInTheLastSecond*(1000/updateFramerateInterval))/(now-timeOfLastCount));
+            if (now - (1000) > timeOfLastCount) {
+                this.currentFramerate = (int)((framesInTheLastSecond*1000)/(now-timeOfLastCount));
                 framesInTheLastSecond = 0;
                 timeOfLastCount = now;
-                System.out.println("yes");
             }
-            this.stage.setTitle(String.format("%s | %s", this.frame.getWindowTitle(), this.currentFramerate));
-
-            //System.out.println(String.format("%s | %s | %s", this.frame.getWindowTitle(), this.currentFramerate, now));
+            this.stage.setTitle(String.format("%s | FPS: %s", this.frame.getWindowTitle(), this.currentFramerate));
         }
     }
 }
