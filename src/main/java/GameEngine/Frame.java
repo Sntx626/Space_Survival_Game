@@ -9,7 +9,6 @@ import java.util.ArrayList;
 public class Frame {
 
     String windowTitle, windowIcon;
-    int width, height;
 
     ArrayList<Component> foreground = new ArrayList<Component>();
     ArrayList<Entity> middleground = new ArrayList<Entity>();
