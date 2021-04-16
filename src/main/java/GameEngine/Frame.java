@@ -1,27 +1,50 @@
 package GameEngine;
 
-import GameEngine.Entitys.Entity;
-import GameEngine.UI.Component;
+import GameEngine.Background.Background;
+import GameEngine.UI.UI;
+import GameEngine.World.World;
 import Viewer.Renderer;
-
-import java.util.ArrayList;
 
 public class Frame {
 
+    Renderer renderer;
+
     String windowTitle, windowIcon;
 
-    ArrayList<Component> foreground = new ArrayList<Component>();
-    ArrayList<Entity> middleground = new ArrayList<Entity>();
-    String background;
-
-    Renderer renderer;
+    UI ui;                  // Foreground
+    World world;            // Middleground
+    Background background;  // Background
 
     public Frame(Renderer renderer) {
         this.renderer = renderer;
     }
 
-    public void init () {
+    public void init() {
 
+    }
+
+    public UI getUi() {
+        return ui;
+    }
+
+    public void setUi(UI ui) {
+        this.ui = ui;
+    }
+
+    public World getWorld() {
+        return world;
+    }
+
+    public void setWorld(World world) {
+        this.world = world;
+    }
+
+    public Background getBackground() {
+        return background;
+    }
+
+    public void setBackground(Background background) {
+        this.background = background;
     }
 
     public void setWindowIcon(String windowIcon) {

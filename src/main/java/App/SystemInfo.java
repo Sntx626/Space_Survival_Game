@@ -1,4 +1,4 @@
-package org.example;
+package App;
 
 public class SystemInfo {
 
