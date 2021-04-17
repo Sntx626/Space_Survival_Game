@@ -38,7 +38,6 @@ public class Game extends Frame implements Runnable{
         p.setH(64);
         p.setW(64);
         p.setCanCollide(true);
-        p.setHitbox(Entity.HITBOX.rect);
 
         f = new Fog(this);
         f.setH(1080);

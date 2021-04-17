@@ -26,6 +26,28 @@ public class Player extends Entity {
         }
     }
 
+    public double getAngleToMouse(int cx, int cy, int cw, int ch, int w, int h, int mx, int my) {
+        int tempX = (int)((cw / 2) + (this.getX()-cx));
+        int tempY = (int)((ch / 2) + (this.getY()-cy));
+
+        double factorY = (double)h / (double)ch;
+        double factorX = (double)w / (double)cw;
+
+        tempX = (int)((double)tempX * factorX);
+        tempY = (int)((double)tempY * factorY);
+
+        double vectorX = tempX - mx, vectorY = tempY - my;
+        double vectorLength = Math.sqrt(Math.pow(vectorX, 2) + Math.pow(vectorY, 2));
+        double normVectorX = vectorX/vectorLength, normalVectorY = vectorY/vectorLength;
+        double angle = Math.toDegrees(Math.asin(normVectorX/1));
+        if (normalVectorY < 0) {
+            angle += 180;
+        } else {
+            angle *= -1;
+        }
+        return angle;
+    }
+
     @Override
     public void render(GraphicsContext gc, int cx, int cy, int cw, int ch, int w, int h, int mx, int my) {
         gc.save();
@@ -54,15 +76,7 @@ public class Player extends Entity {
         };
         double roatet = 0;
 
-        double vectorX = tempX - mx, vectorY = tempY - my;
-        double vectorLength = Math.sqrt(Math.pow(vectorX, 2) + Math.pow(vectorY, 2));
-        double normVectorX = vectorX/vectorLength, normalVectorY = vectorY/vectorLength;
-        double angle = Math.toDegrees(Math.asin(normVectorX/1));
-        if (normalVectorY < 0) {
-            angle += 180;
-        } else {
-            angle *= -1;
-        }
+        double angle = this.getAngleToMouse(cx, cy, cw, ch, w, h, mx, my);
 
         gc.translate(tempX, tempY);
         gc.rotate(angle);

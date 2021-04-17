@@ -99,12 +99,13 @@ public class Entity implements Comparable<Entity>{
 
     }
 
+
     public boolean isColliding(Entity e) {
         if (this.hitbox == HITBOX.circle && e.hitbox == HITBOX.circle) {
             double dx = this.x - e.getX();
             double dy = this.y - e.getY();
             double distance = Math.sqrt(dx * dx + dy * dy);
-            return (distance < this.getW() + e.getW());
+            return (distance < this.getW()/2 + e.getW()/2);
         } else if (this.hitbox == HITBOX.rect && e.hitbox == HITBOX.rect) {
             double e1X = this.x - this.getW()/2;
             double e1Y = this.y - this.getH()/2;
@@ -121,18 +122,8 @@ public class Entity implements Comparable<Entity>{
                 Rect = this;
                 Circle = e;
             }
-
-
             double distanceX = Math.abs(Circle.getX() - Rect.getX());
             double distanceY = Math.abs(Circle.getY() - Rect.getY());
-            /*System.out.println("CX:" + Circle.getX());
-            System.out.println("CY:" + Circle.getY());
-            System.out.println("RX:" + Rect.getX());
-            System.out.println("RY:" + Rect.getY());
-            System.out.println("Dist X:" + distanceX);
-            System.out.println("Dist Y:" + distanceY);
-            System.out.println("Dist XFull:" + (Rect.getW()/2 + Circle.getW()));
-            System.out.println("Dist YFull:" + (Rect.getH()/2 + Circle.getH()));*/
             if (distanceX > (Rect.getW()/2 + Circle.getW()/2)) { return false; }
             if (distanceY > (Rect.getH()/2 + Circle.getH()/2)) { return false; }
             if (distanceX <= (Rect.getW()/2)) { return true; }

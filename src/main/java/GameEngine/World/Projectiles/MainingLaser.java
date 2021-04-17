@@ -1,7 +1,6 @@
 package GameEngine.World.Projectiles;
 
 import GameEngine.Frame;
-import GameEngine.Vector;
 import GameEngine.World.Entity;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
@@ -21,11 +20,11 @@ public class MainingLaser extends Entity {
     @Override
     public void render(GraphicsContext gc, int cx, int cy, int cw, int ch, int w, int h, int mx, int my) {
         int tempx, tempy;
-        if(belongTo.)
+        //if(belongTo.)
         gc.save();
         gc.setStroke(Color.RED);
         gc.setLineWidth(20);
-        gc.strokeLine(cx, cy, );
+        //gc.strokeLine(cx, cy, );
         gc.restore();
     }
 }
