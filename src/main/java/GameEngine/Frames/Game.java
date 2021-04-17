@@ -54,13 +54,11 @@ public class Game extends Frame implements Runnable{
         this.getWorld().addEntity(a);
         this.getWorld().addEntity(p);
         this.getWorld().addEntity(f);
-        System.out.println(this.getWorld().getEntities().get(0).getX());
         new Thread(this).start();
     }
 
     @Override
     public void keyIsPressed(KeyEvent key) {
-        System.out.println("-------------");
         if (key.getCode() == KeyCode.D) {
             pd = true;
         }

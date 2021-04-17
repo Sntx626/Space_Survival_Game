@@ -143,7 +143,7 @@ public class Renderer{
                 // foreground
 
                 for (Component component: frame.getUi().getComponents()) {
-                    // render component
+                    // render componentdwwd
                     component.render(canvas.getGraphicsContext2D());
                 }
 

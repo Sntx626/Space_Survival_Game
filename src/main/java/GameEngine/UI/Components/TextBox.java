@@ -2,6 +2,7 @@ package GameEngine.UI.Components;
 
 import GameEngine.UI.Component;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 
 public class TextBox extends Component {
 
@@ -15,6 +16,6 @@ public class TextBox extends Component {
 
     @Override
     public void render(GraphicsContext gc){
-        gc.fillText(content, this.getX(), this.getY());
+        gc.setFill(Color.WHITE); gc.fillText(content, this.getX(), this.getY());
     }
 }
