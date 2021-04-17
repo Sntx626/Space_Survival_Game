@@ -9,9 +9,18 @@ public class Entity implements Comparable<Entity>{
         circle
     }
 
+
+    public void setHitbox(HITBOX hitbox) {
+        this.hitbox = hitbox;
+    }
+
     HITBOX hitbox = HITBOX.circle;
 
     private double x, y;
+
+
+
+    boolean canCollide = false;
     int z_index = 0;
     int w, h;
 
@@ -54,6 +63,17 @@ public class Entity implements Comparable<Entity>{
         this.setY(this.getY() + velY);
     }
 
+    public boolean isCanCollide() {
+        return canCollide;
+    }
+
+    public void setCanCollide(boolean canCollide) {
+        this.canCollide = canCollide;
+    }
+
+    public void onColliding(Entity e) {
+
+    }
 
     public boolean isColliding(Entity e) {
         if (this.hitbox == HITBOX.circle && e.hitbox == HITBOX.circle) {
@@ -71,10 +91,33 @@ public class Entity implements Comparable<Entity>{
                     e1Y < e2Y + e.getH() &&
                     e1Y + this.getH() > e2Y);
         } else {
+            Entity Circle = this;
+            Entity Rect = e;
+            if (this.hitbox == HITBOX.rect) {
+                Rect = this;
+                Circle = e;
+            }
+
+
+            double distanceX = Math.abs(Circle.getX() - Rect.getX());
+            double distanceY = Math.abs(Circle.getY() - Rect.getY());
+            /*System.out.println("CX:" + Circle.getX());
+            System.out.println("CY:" + Circle.getY());
+            System.out.println("RX:" + Rect.getX());
+            System.out.println("RY:" + Rect.getY());
+            System.out.println("Dist X:" + distanceX);
+            System.out.println("Dist Y:" + distanceY);
+            System.out.println("Dist XFull:" + (Rect.getW()/2 + Circle.getW()));
+            System.out.println("Dist YFull:" + (Rect.getH()/2 + Circle.getH()));*/
+            if (distanceX > (Rect.getW()/2 + Circle.getW()/2)) { return false; }
+            if (distanceY > (Rect.getH()/2 + Circle.getH()/2)) { return false; }
+            if (distanceX <= (Rect.getW()/2)) { return true; }
+            if (distanceY <= (Rect.getW()/2)) { return true; }
+            double cornerDistanceSq = Math.pow(distanceX - Rect.getW()/2, 2) +
+                    Math.pow(distanceY - Rect.getH()/2, 2);
+            return (cornerDistanceSq <= (Math.pow(Circle.getH(), 2)));
 
         }
-
-        return false;
     }
 
     /*

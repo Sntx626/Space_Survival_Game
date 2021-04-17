@@ -133,7 +133,7 @@ public class Renderer{
 
 
 
-                ArrayList<Entity> entities = frame.getWorld().getEntities();
+                ArrayList<Entity> entities = (ArrayList<Entity>)frame.getWorld().getEntities().clone();
                 Collections.sort(entities);
 
                 for (Entity e : entities) {

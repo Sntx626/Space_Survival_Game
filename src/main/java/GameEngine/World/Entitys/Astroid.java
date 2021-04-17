@@ -18,12 +18,12 @@ public class Astroid extends Entity {
         tempX = (int)((double)tempX * factorX);
         tempY = (int)((double)tempY * factorY);
 
-        int tempW = (int)((double) this.getW() * factorX);
-        int tempH = (int)((double) this.getH() * factorY);
+        double tempW = ((double) this.getW() * factorX);
+        double tempH = ((double) this.getH() * factorY);
 
 
         gc.translate(tempX, tempY);
-        gc.fillOval(-tempW/2, -tempH/2, tempW, tempH);
+        gc.fillOval(-tempW/2.0, -tempH/2.0, tempW, tempH);
         gc.restore();
         //gc.fillRect(tempX - (tempW/2), tempY - (tempH/2), tempW, tempH);
     }

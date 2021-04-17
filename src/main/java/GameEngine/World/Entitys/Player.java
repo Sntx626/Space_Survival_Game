@@ -8,6 +8,10 @@ import javafx.scene.shape.Polygon;
 public class Player extends Entity {
 
 
+    @Override
+    public void onColliding(Entity e) {
+        System.out.println("Ouch Astroid");
+    }
 
     @Override
     public void render(GraphicsContext gc, int cx, int cy, int cw, int ch, int w, int h, int mx, int my) {
@@ -22,8 +26,8 @@ public class Player extends Entity {
         tempX = (int)((double)tempX * factorX);
         tempY = (int)((double)tempY * factorY);
 
-        int tempW = (int)((double) this.getW() * factorX);
-        int tempH = (int)((double) this.getH() * factorY);
+        double tempW = ((double) this.getW() * factorX);
+        double tempH = ((double) this.getH() * factorY);
 
         double[] playerModelX =  {
                 -(tempW/2),
@@ -48,8 +52,9 @@ public class Player extends Entity {
         }
 
         gc.translate(tempX, tempY);
-        gc.rotate(angle);
-        gc.fillPolygon(playerModelX, playerModelY, 3);
+        //gc.rotate(angle);
+        //gc.fillPolygon(playerModelX, playerModelY, 3);
+        gc.fillRect(-tempW/2, -tempH/2, tempW, tempH);
         gc.restore();
         //gc.fillRect(tempX - (tempW/2), tempY - (tempH/2), tempW, tempH);
     }

@@ -3,6 +3,7 @@ package GameEngine.Frames;
 import GameEngine.Background.Background;
 import GameEngine.Frame;
 import GameEngine.UI.UI;
+import GameEngine.World.Entity;
 import GameEngine.World.Entitys.Astroid;
 import GameEngine.World.Entitys.Fog;
 import GameEngine.World.Entitys.Player;
@@ -33,8 +34,10 @@ public class Game extends Frame implements Runnable{
         p.setZ_index(-2);
         p.setX(0);
         p.setY(0);
-        p.setH(40);
-        p.setW(30);
+        p.setH(64);
+        p.setW(64);
+        p.setCanCollide(true);
+        p.setHitbox(Entity.HITBOX.rect);
 
         f = new Fog();
         f.setH(1080);
@@ -46,6 +49,7 @@ public class Game extends Frame implements Runnable{
         a.setY(-250);
         a.setH(100);
         a.setW(100);
+        a.setCanCollide(true);
         this.getWorld().addEntity(a);
         this.getWorld().addEntity(p);
         this.getWorld().addEntity(f);
@@ -99,17 +103,18 @@ public class Game extends Frame implements Runnable{
 
             while (true) {
                 double accX = 0,  accY = 0;
+                double responsive = 0.01;
                 if (pd) {
-                   accX += 1;
+                   accX += 1*responsive;
                 }
                 if (pa) {
-                    accX -= 1;
+                    accX -= 1*responsive;
                 }
                 if (pw) {
-                    accY -= 1;
+                    accY -= 1*responsive;
                 }
                 if (ps) {
-                    accY += 1;
+                    accY += 1*responsive;
                 }
                 this.p.addForce(accX, accY);
 
@@ -119,6 +124,18 @@ public class Game extends Frame implements Runnable{
                 this.getWorld().getCamera().setY(p.getY());
                 f.setX(p.getX());
                 f.setY(p.getY());
+
+                for (Entity e1: this.getWorld().getEntities()) {
+                    if (e1.isCanCollide()){
+                        for (Entity e2 : this.getWorld().getEntities()) {
+                            if (e1 != e2 && e2.isCanCollide()) {
+                                if (e1.isColliding(e2)) {
+                                    e1.onColliding(e2);
+                                }
+                            }
+                        }
+                    }
+                }
 
                 Thread.sleep(1);
             }
