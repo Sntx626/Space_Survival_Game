@@ -32,14 +32,16 @@ public class MainingLaser extends Entity {
         //double tempX = Math.sin(Math.toRadians(angle)) * 1000;
         //double tempY = Math.cos(Math.toRadians(angle)) * 1000;
 
+        double factorY = (double)h / (double)ch;
+        double factorX = (double)w / (double)cw;
 
 
         gc.save();
         gc.setStroke(Color.RED);
-        gc.setLineWidth(20);
+        gc.setLineWidth(factorX * 10);
         gc.translate(playerCord.getX(), playerCord.getY());
         gc.rotate(angle);
-        gc.strokeLine(0, 0, 0, -100);
+        gc.strokeLine(0, 0, 0, -200 * factorX);
         gc.restore();
     }
 }
