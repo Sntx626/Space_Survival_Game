@@ -37,30 +37,14 @@ public class Game extends Frame implements Runnable{
         this.getUi().addComponent(new TextBox("Dolor Sit Amet", 10, 40));
 
         p = new Player(this);
-        p.setZ_index(1);
         p.setX(0);
         p.setY(0);
-        p.setH(64);
-        p.setW(64);
-        p.setCanCollide(true);
-        p.setMaxHp(10);
-        p.setHp(10);
-        p.enableHealthBar();
 
         f = new Fog(this);
-        f.setW(1080);
-        f.setH(1080);
 
         Astroid a = new Astroid(this);
-        a.setZ_index(-1);
         a.setX(-300);
         a.setY(-250);
-        a.setH(100);
-        a.setW(100);
-        a.setCanCollide(true);
-        a.setMaxHp(1);
-        a.setHp(1);
-        a.enableHealthBar();
 
         this.getWorld().addEntity(a);
         this.getWorld().addEntity(p);

@@ -17,6 +17,8 @@ public class Fog  extends Entity {
 
     public Fog(Frame frame) {
         super(frame);
+        this.setW(1080);
+        this.setH(1080);
     }
 
     @Override

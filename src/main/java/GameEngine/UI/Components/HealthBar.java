@@ -34,7 +34,6 @@ public class HealthBar extends Component {
         }
 
         Vector toHealthBarTarget = new Vector(camera.getX()-this.entity.getX(), camera.getY()-this.entity.getY());
-        System.out.println("Fog Size: " + fogSize + ", discance: " +  toHealthBarTarget.Length());
 
         if (toHealthBarTarget.Length() <= fogSize) {
             gc.save();
@@ -42,9 +41,28 @@ public class HealthBar extends Component {
             gc.setLineCap(StrokeLineCap.ROUND);
             gc.setStroke(Color.web("#1c1c1c"));
             gc.strokeLine(v.getX()-this.healthBarWidth/2, v.getY()-entity.getH()/2-20, v.getX()+this.healthBarWidth/2, v.getY()-entity.getH()/2-20);
-            gc.setStroke(Color.web("#26a65b"));
-            int healthLeftBar = (int)(this.getHpPercentage() * this.healthBarWidth - this.healthBarWidth/2);
-            gc.strokeLine(v.getX()-this.healthBarWidth/2, v.getY()-entity.getH()/2-20, v.getX()+healthLeftBar, v.getY()-entity.getH()/2-20);
+            double hpPercentage = this.getHpPercentage();
+            if (hpPercentage >= 1) {
+                gc.setStroke(Color.web("#2cba00"));
+                int healthLeftBar = (int)(hpPercentage * this.healthBarWidth - this.healthBarWidth/2);
+                gc.strokeLine(v.getX()-this.healthBarWidth/2, v.getY()-entity.getH()/2-20, v.getX()+healthLeftBar, v.getY()-entity.getH()/2-20);
+            } else if (hpPercentage >= 0.75) {
+                gc.setStroke(Color.web("#a3ff00"));
+                int healthLeftBar = (int)(hpPercentage * this.healthBarWidth - this.healthBarWidth/2);
+                gc.strokeLine(v.getX()-this.healthBarWidth/2, v.getY()-entity.getH()/2-20, v.getX()+healthLeftBar, v.getY()-entity.getH()/2-20);
+            } else if (hpPercentage >= 0.5) {
+                gc.setStroke(Color.web("#fff400"));
+                int healthLeftBar = (int)(hpPercentage * this.healthBarWidth - this.healthBarWidth/2);
+                gc.strokeLine(v.getX()-this.healthBarWidth/2, v.getY()-entity.getH()/2-20, v.getX()+healthLeftBar, v.getY()-entity.getH()/2-20);
+            } else if (hpPercentage >= 0.25) {
+                gc.setStroke(Color.web("#ffa700"));
+                int healthLeftBar = (int)(hpPercentage * this.healthBarWidth - this.healthBarWidth/2);
+                gc.strokeLine(v.getX()-this.healthBarWidth/2, v.getY()-entity.getH()/2-20, v.getX()+healthLeftBar, v.getY()-entity.getH()/2-20);
+            } else if (hpPercentage >= 0) {
+                gc.setStroke(Color.web("#ff0000"));
+                int healthLeftBar = (int)(hpPercentage * this.healthBarWidth - this.healthBarWidth/2);
+                gc.strokeLine(v.getX()-this.healthBarWidth/2, v.getY()-entity.getH()/2-20, v.getX()+healthLeftBar, v.getY()-entity.getH()/2-20);
+            }
             gc.restore();
         }
     }

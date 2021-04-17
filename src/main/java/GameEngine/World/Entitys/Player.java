@@ -14,15 +14,25 @@ public class Player extends Entity {
     public Player(Frame frame) {
         super(frame);
         this.frame = frame;
+        this.setZ_index(1);
+        this.setH(64);
+        this.setW(64);
+        this.setCanCollide(true);
+        this.setMaxHp(10);
+        this.setHp(10);
+        this.enableHealthBar();
     }
 
     @Override
     public void onColliding(Entity e) {
         if (e.getClass() == Astroid.class) {
-            System.out.println("Ouch Astroid");
+            //System.out.println("Ouch Astroid");
             double momX = this.getX()-e.getX();
             double momY = this.getY()-e.getY();
             this.getCollisions().add(new Vector(momX, momY));
+
+            this.setHp(this.getHp()-1);
+            e.setHp(e.getHp()-1);
         }
     }
 
