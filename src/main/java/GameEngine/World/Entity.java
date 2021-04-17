@@ -4,8 +4,6 @@ import javafx.scene.canvas.GraphicsContext;
 
 public class Entity implements Comparable<Entity>{
 
-
-
     private double x, y;
     int z_index = 0;
     int w, h;
@@ -20,7 +18,7 @@ public class Entity implements Comparable<Entity>{
 
     public void move () {
         double mag = Math.sqrt(this.velX * this.velX + this.velY * this.velY);
-        double fricX = 0, fricY = 0;
+        double fricX, fricY;
         if (mag != 0 && mag > 0.01 && mag < -0.01) {
             fricX = (this.velX * -1) / mag;
             fricY = (this.velY * -1) / mag;
@@ -28,8 +26,8 @@ public class Entity implements Comparable<Entity>{
             fricX = this.velX * -1;
             fricY = this.velY * -1;
         }
-        fricX *= 0.005;
-        fricY *= 0.005;
+        fricX *= 0.007;
+        fricY *= 0.007;
         addForce(fricX, fricY);
 
 
@@ -101,6 +99,6 @@ public class Entity implements Comparable<Entity>{
 
     @Override
     public int compareTo(Entity o) {
-        return (this.getZ_index() < o.getZ_index()) ? -1 : (this.getZ_index() == o.getZ_index()) ? 0 : 1;
+        return Integer.compare(this.getZ_index(), o.getZ_index());
     }
 }
