@@ -22,7 +22,8 @@ public class MainingLaser extends Entity {
     @Override
     public void render(GraphicsContext gc, int cx, int cy, int cw, int ch, int w, int h, int mx, int my) {
         System.out.println("Laser Fired");
-
+        this.setX(belongTo.getX());
+        this.setY(belongTo.getY());
 
         Vector playerCord = belongTo.getViewPortCords(cx, cy, cw, ch, w, h);
 
