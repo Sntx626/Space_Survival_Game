@@ -67,21 +67,21 @@ public class Entity implements Comparable<Entity>{
         fricY *= 0.007;
         addForce(fricX, fricY);
 
-
         this.velX += this.accX;
         this.velY += this.accY;
-
-        for (Vector v: this.getCollisions()) {
-
-        }
-        this.setCollisions(new ArrayList<Vector>());
-
 
         mag = Math.sqrt(this.velX * this.velX + this.velY * this.velY);
         if (mag > maxSpeed) {
             this.velY = (this.velY / mag) * maxSpeed;
             this.velX = (this.velX / mag) * maxSpeed;
         }
+
+        for (Vector v : this.getCollisions()) {
+            System.out.println("Collision: " + v.getX() + " | " + v.getY());
+        }
+        this.setCollisions(new ArrayList<Vector>());
+
+
         this.accX = 0;
         this.accY = 0;
         this.setX(this.getX() + velX);
