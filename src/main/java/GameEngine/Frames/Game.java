@@ -99,6 +99,16 @@ public class Game extends Frame implements Runnable{
     }
 
     @Override
+    public void mouseIsRELEASED(MouseEvent event) {
+        for (Entity current : this.getWorld().getEntities()) {
+            if(current.getClass().equals(MainingLaser.class)){
+                this.getWorld().getEntities().remove(current);
+                break;
+            }
+        }
+    }
+
+    @Override
     public void init() {
         this.setWindowTitle("Start Menu");
     }

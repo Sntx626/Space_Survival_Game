@@ -88,6 +88,12 @@ public class Renderer{
             }
             System.out.println("Mouse Click");
         });
+        scene.addEventHandler(MouseEvent.MOUSE_RELEASED, mouseEvent -> {
+            if(!(mouseEvent.isPrimaryButtonDown())){
+                this.frame.mouseIsRELEASED(mouseEvent);
+            }
+            System.out.println("MOUSE RELEASED");
+        });
         stage.minHeightProperty().bind(stage.widthProperty().multiply(9.0/16.0));
         stage.maxHeightProperty().bind(stage.widthProperty().multiply(9.0/16.0));
 

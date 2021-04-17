@@ -37,6 +37,10 @@ public class Frame {
 
     }
 
+    public void mouseIsRELEASED(MouseEvent event){
+
+    }
+
     public void zoom(double Delta) {
         this.getWorld().zoom(Delta);
     }
