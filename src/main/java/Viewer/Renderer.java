@@ -69,6 +69,10 @@ public class Renderer{
             this.mouseX = (int)mouseEvent.getX();
             this.mouseY = (int)mouseEvent.getY();
         });
+        scene.addEventHandler(MouseEvent.MOUSE_DRAGGED, mouseEvent -> {
+            this.mouseX = (int)mouseEvent.getX();
+            this.mouseY = (int)mouseEvent.getY();
+        });
         scene.setOnScroll(ScrollEvent -> {
             System.out.println(ScrollEvent.getDeltaY());
             frame.zoom(ScrollEvent.getDeltaY());

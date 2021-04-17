@@ -15,6 +15,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
+import java.util.ArrayList;
+
 public class Game extends Frame implements Runnable{
 
     Player p;
@@ -142,9 +144,11 @@ public class Game extends Frame implements Runnable{
                 f.setX(p.getX());
                 f.setY(p.getY());
 
-                for (Entity e1: this.getWorld().getEntities()) {
+                ArrayList<Entity> tempEnt = (ArrayList<Entity>)this.getWorld().getEntities().clone();
+
+                for (Entity e1: tempEnt) {
                     if (e1.isCanCollide()){
-                        for (Entity e2 : this.getWorld().getEntities()) {
+                        for (Entity e2 : tempEnt) {
                             if (e1 != e2 && e2.isCanCollide()) {
                                 if (e1.isColliding(e2)) {
                                     e1.onColliding(e2);
