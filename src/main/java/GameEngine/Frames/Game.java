@@ -40,6 +40,7 @@ public class Game extends Frame implements Runnable{
         p.setH(100);
         p.setW(64);
         p.setCanCollide(true);
+        p.enableHealthBar();
 
         f = new Fog(this);
         f.setH(1080);
@@ -52,6 +53,8 @@ public class Game extends Frame implements Runnable{
         a.setH(100);
         a.setW(100);
         a.setCanCollide(true);
+        a.enableHealthBar();
+
         this.getWorld().addEntity(a);
         this.getWorld().addEntity(p);
         this.getWorld().addEntity(f);

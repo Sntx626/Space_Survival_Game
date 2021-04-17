@@ -155,7 +155,7 @@ public class Renderer{
 
                 for (Component component: frame.getUi().getComponents()) {
                     // render componentdwwd
-                    component.render(canvas.getGraphicsContext2D());
+                    component.render(canvas.getGraphicsContext2D(), c);
                 }
 
                 framesInTheLastSecond++;

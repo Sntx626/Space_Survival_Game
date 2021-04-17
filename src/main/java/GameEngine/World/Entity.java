@@ -1,6 +1,7 @@
 package GameEngine.World;
 
 import GameEngine.Frame;
+import GameEngine.UI.Components.HealthBar;
 import javafx.scene.canvas.GraphicsContext;
 
 import java.util.ArrayList;
@@ -27,7 +28,6 @@ public class Entity implements Comparable<Entity>{
 
     private double x, y;
 
-
     public ArrayList<Vector> getCollisions() {
         return collisions;
     }
@@ -45,7 +45,20 @@ public class Entity implements Comparable<Entity>{
     double accX = 0, accY  = 0, velX = 0, velY = 0;
     int maxSpeed = 1;
 
-    int hp = -1; // hp > 0 -> is alive; hp == 0 -> dead; hp == -1 -> No hp/invulnerable
+    int hp = 0;
+    int maxHp = -1; // hp > 0 -> is alive; hp == 0 -> dead; hp == -1 -> No hp/invulnerable
+    HealthBar healthBar;
+
+    public void enableHealthBar() {
+        if (healthBar == null) {
+            healthBar = new HealthBar(this);
+            this.frame.getUi().addComponent(healthBar);
+        }
+    }
+
+    public void disableHealthBar() {
+
+    }
 
     public void addForce(double fX, double fY) {
         this.accY += fY;

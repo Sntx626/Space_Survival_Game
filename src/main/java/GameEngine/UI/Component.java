@@ -1,9 +1,7 @@
 package GameEngine.UI;
 
-import javafx.scene.canvas.Canvas;
+import GameEngine.World.Entitys.Camera;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 
 public class Component {
 
@@ -13,7 +11,7 @@ public class Component {
 
     public Component() {}
 
-    public void render(GraphicsContext gc){
+    public void render(GraphicsContext gc, Camera camera){
     }
 
     public int getX() {

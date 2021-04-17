@@ -1,6 +1,7 @@
 package GameEngine.UI.Components;
 
 import GameEngine.UI.Component;
+import GameEngine.World.Entitys.Camera;
 import javafx.scene.canvas.GraphicsContext;
 
 public class StrokeTextBox extends Component {
@@ -14,7 +15,7 @@ public class StrokeTextBox extends Component {
     }
 
     @Override
-    public void render(GraphicsContext gc){
+    public void render(GraphicsContext gc, Camera camera){
         gc.strokeText(content, this.getX(), this.getY());
     }
 }
