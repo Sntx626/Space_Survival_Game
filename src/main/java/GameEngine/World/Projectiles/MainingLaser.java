@@ -19,12 +19,14 @@ public class MainingLaser extends Entity {
 
     @Override
     public void render(GraphicsContext gc, int cx, int cy, int cw, int ch, int w, int h, int mx, int my) {
-        int tempx, tempy;
-        //if(belongTo.)
+        System.out.println("Laser Fired");
+        double tempx = cx + (Math.sin(Math.toRadians(belongTo.getAngleToMouse(cx, cy, cw, ch, w, h, mx, my))));
+        double tempy = cy + (Math.cos(Math.toRadians(belongTo.getAngleToMouse(cx, cy, cw, ch, w, h, mx, my))));
+
         gc.save();
         gc.setStroke(Color.RED);
         gc.setLineWidth(20);
-        //gc.strokeLine(cx, cy, );
+        gc.strokeLine(cx, cy, tempx, tempy);
         gc.restore();
     }
 }

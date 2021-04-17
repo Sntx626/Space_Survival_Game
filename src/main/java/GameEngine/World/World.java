@@ -83,7 +83,7 @@ public class World{
     public Player getPlayer(){
         Player player = null;
         for (Entity current : getEntities()) {
-            if(current.equals(Player.class)){
+            if(current.getClass().equals(Player.class)){
                 player = (Player) current;
             }
         }
