@@ -52,6 +52,10 @@ public class Frame {
         this.world = world;
     }
 
+    public Renderer getRenderer() {
+        return renderer;
+    }
+
     public Background getBackground() {
         return background;
     }

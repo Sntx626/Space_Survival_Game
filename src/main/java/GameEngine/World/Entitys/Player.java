@@ -11,12 +11,13 @@ import java.util.ArrayList;
 
 public class Player extends Entity {
 
+    Frame frame;
+
+
     public Player(Frame frame) {
         super(frame);
+        this.frame = frame;
     }
-
-
-
 
     @Override
     public void onColliding(Entity e) {
@@ -72,5 +73,6 @@ public class Player extends Entity {
         gc.fillRect(-tempW/2, -tempH/2, tempW, tempH);
         gc.restore();
         //gc.fillRect(tempX - (tempW/2), tempY - (tempH/2), tempW, tempH);
+
     }
 }

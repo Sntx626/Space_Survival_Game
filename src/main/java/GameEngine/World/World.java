@@ -2,6 +2,7 @@ package GameEngine.World;
 
 import GameEngine.Frame;
 import GameEngine.World.Entitys.Camera;
+import GameEngine.World.Entitys.Player;
 import Viewer.Renderer;
 
 import java.util.ArrayList;
@@ -77,5 +78,15 @@ public class World{
         for (int i = 0; i < this.entities.size(); i++) {
             this.entities.get(i).move();
         }
+    }
+
+    public Player getPlayer(){
+        Player player = null;
+        for (Entity current : getEntities()) {
+            if(current.equals(Player.class)){
+                player = (Player) current;
+            }
+        }
+        return player;
     }
 }

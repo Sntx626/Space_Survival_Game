@@ -7,6 +7,7 @@ import GameEngine.Frames.StartMenu;
 import GameEngine.UI.Component;
 import GameEngine.World.Entity;
 import GameEngine.World.Entitys.Camera;
+import GameEngine.World.Projectiles.MainingLaser;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -81,6 +82,12 @@ public class Renderer{
             HEIGHT = newVal.intValue();
             canvas.setHeight(HEIGHT);
         });
+        scene.addEventHandler(MouseEvent.MOUSE_PRESSED, mouseEvent -> {
+            if(mouseEvent.isPrimaryButtonDown()){
+                frame.getWorld().addEntity(new MainingLaser(this.frame, frame.getWorld().getPlayer()));
+            }
+            System.out.println("Mouse Click");
+        });
         stage.minHeightProperty().bind(stage.widthProperty().multiply(9.0/16.0));
         stage.maxHeightProperty().bind(stage.widthProperty().multiply(9.0/16.0));
 
@@ -123,9 +130,7 @@ public class Renderer{
 
                 // background
 
-                //canvas.getGraphicsContext2D().setFill(Color.WHITE);
-                //canvas.getGraphicsContext2D().fillRect(0, 0, WIDTH, HEIGHT);
-                frame.getBackground().render(c.getX(), c.getY());
+               frame.getBackground().render(c.getX(), c.getY());
 
                 // middleground
 
