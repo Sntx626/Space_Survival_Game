@@ -32,6 +32,10 @@ public class Frame {
 
     }
 
+    public void zoom(double Delta) {
+        this.getWorld().zoom(Delta);
+    }
+
     public UI getUi() {
         return ui;
     }

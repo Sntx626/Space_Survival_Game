@@ -24,12 +24,13 @@ public class Game extends Frame implements Runnable{
         setWorld(new World(this));
         setBackground(new Background(this));
 
+        this.getWorld().setCanZoom(true);
 
 
 
 
         p = new Player();
-        p.setZ_index(1);
+        p.setZ_index(-2);
         p.setX(0);
         p.setY(0);
         p.setH(40);

@@ -14,6 +14,7 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -63,6 +64,10 @@ public class Renderer{
             this.mouseX = (int)mouseEvent.getX();
             this.mouseY = (int)mouseEvent.getY();
         });
+        scene.setOnScroll(ScrollEvent -> {
+            System.out.println(ScrollEvent.getDeltaY());
+            frame.zoom(ScrollEvent.getDeltaY());
+        });
         stage.widthProperty().addListener((obs, oldVal, newVal) -> {
             WIDTH = newVal.intValue();
             canvas.setWidth(WIDTH);
@@ -74,7 +79,6 @@ public class Renderer{
         });
         stage.minHeightProperty().bind(stage.widthProperty().multiply(9.0/16.0));
         stage.maxHeightProperty().bind(stage.widthProperty().multiply(9.0/16.0));
-
 
         this.stage.setScene(scene);
 
