@@ -35,7 +35,7 @@ public class Game extends Frame implements Runnable{
         Astroid a = new Astroid();
         a.setZ_index(-1);
         a.setX(-300);
-        a.setY(-300);
+        a.setY(-250);
         a.setH(100);
         a.setW(100);
         this.getWorld().addEntity(a);

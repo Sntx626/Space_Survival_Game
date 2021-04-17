@@ -17,8 +17,8 @@ public class World{
     public World(Frame frame) {
         camera.setX(0);
         camera.setY(0);
-        camera.setW(600);
-        camera.setH(500);
+        camera.setW(16*100);
+        camera.setH(9*100);
     }
 
     public void addEntity(Entity e) {

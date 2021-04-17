@@ -16,6 +16,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -34,7 +35,7 @@ public class Renderer{
 
     boolean continueRendering = true;
 
-    final int WIDTH = 640, HEIGHT = 480;
+    int WIDTH = 16*50, HEIGHT = 9*50;
 
     int currentFramerate = 0;
 
@@ -61,6 +62,18 @@ public class Renderer{
             this.mouseX = (int)mouseEvent.getX();
             this.mouseY = (int)mouseEvent.getY();
         });
+        stage.widthProperty().addListener((obs, oldVal, newVal) -> {
+            WIDTH = newVal.intValue();
+            canvas.setWidth(WIDTH);
+        });
+
+        stage.heightProperty().addListener((obs, oldVal, newVal) -> {
+            HEIGHT = newVal.intValue();
+            canvas.setHeight(HEIGHT);
+        });
+        stage.minHeightProperty().bind(stage.widthProperty().multiply(9.0/16.0));
+        stage.maxHeightProperty().bind(stage.widthProperty().multiply(9.0/16.0));
+
 
         this.stage.setScene(scene);
 
@@ -113,7 +126,6 @@ public class Renderer{
                         e.render(canvas.getGraphicsContext2D(), (int)c.getX(), (int)c.getY(), c.getW(), c.getH(), WIDTH, HEIGHT, mouseX, mouseY);
                     }
                 }
-                System.out.println();
 
                 //foreground
 
