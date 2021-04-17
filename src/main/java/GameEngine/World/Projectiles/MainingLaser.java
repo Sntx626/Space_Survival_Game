@@ -2,6 +2,7 @@ package GameEngine.World.Projectiles;
 
 import GameEngine.Frame;
 import GameEngine.World.Entity;
+import GameEngine.World.Vector;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
@@ -15,18 +16,29 @@ public class MainingLaser extends Entity {
     public MainingLaser(Frame frame, Entity belongTo) {
         super(frame);
         this.belongTo = belongTo;
+
     }
 
     @Override
     public void render(GraphicsContext gc, int cx, int cy, int cw, int ch, int w, int h, int mx, int my) {
         System.out.println("Laser Fired");
-        double tempx = cx + (Math.sin(Math.toRadians(belongTo.getAngleToMouse(cx, cy, cw, ch, w, h, mx, my))));
-        double tempy = cy + (Math.cos(Math.toRadians(belongTo.getAngleToMouse(cx, cy, cw, ch, w, h, mx, my))));
+
+
+        Vector playerCord = belongTo.getViewPortCords(cx, cy, cw, ch, w, h);
+
+        double angle = belongTo.getAngleToMouse(cx, cy, cw, ch, w, h, mx, my);
+
+        //double tempX = Math.sin(Math.toRadians(angle)) * 1000;
+        //double tempY = Math.cos(Math.toRadians(angle)) * 1000;
+
+
 
         gc.save();
         gc.setStroke(Color.RED);
         gc.setLineWidth(20);
-        gc.strokeLine(cx, cy, tempx, tempy);
+        gc.translate(playerCord.getX(), playerCord.getY());
+        gc.rotate(angle);
+        gc.strokeLine(0, 0, 0, -100);
         gc.restore();
     }
 }

@@ -84,7 +84,7 @@ public class Renderer{
         });
         scene.addEventHandler(MouseEvent.MOUSE_PRESSED, mouseEvent -> {
             if(mouseEvent.isPrimaryButtonDown()){
-                frame.getWorld().addEntity(new MainingLaser(this.frame, frame.getWorld().getPlayer()));
+                this.frame.mouseIsClicked(mouseEvent);
             }
             System.out.println("Mouse Click");
         });

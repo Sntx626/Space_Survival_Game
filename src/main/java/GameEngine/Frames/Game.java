@@ -8,10 +8,12 @@ import GameEngine.World.Entity;
 import GameEngine.World.Entitys.Astroid;
 import GameEngine.World.Entitys.Fog;
 import GameEngine.World.Entitys.Player;
+import GameEngine.World.Projectiles.MainingLaser;
 import GameEngine.World.World;
 import Viewer.Renderer;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 
 public class Game extends Frame implements Runnable{
 
@@ -32,10 +34,10 @@ public class Game extends Frame implements Runnable{
         this.getUi().addComponent(new TextBox("Dolor Sit Amet", 10, 40));
 
         p = new Player(this);
-        p.setZ_index(-2);
+        p.setZ_index(1);
         p.setX(0);
         p.setY(0);
-        p.setH(64);
+        p.setH(100);
         p.setW(64);
         p.setCanCollide(true);
 
@@ -87,6 +89,13 @@ public class Game extends Frame implements Runnable{
         if (key.getCode() == KeyCode.S) {
             ps = false;
         }
+    }
+
+    @Override
+    public void mouseIsClicked(MouseEvent event) {
+        MainingLaser laser = new MainingLaser(this, this.getWorld().getPlayer());
+        laser.setZ_index(-1);
+        this.getWorld().addEntity(laser);
     }
 
     @Override

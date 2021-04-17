@@ -32,36 +32,27 @@ public class Player extends Entity {
     public void render(GraphicsContext gc, int cx, int cy, int cw, int ch, int w, int h, int mx, int my) {
         gc.save();
         gc.setFill(Color.web("#283ED1"));
-        int tempX = (int)((cw / 2) + (this.getX()-cx));
-        int tempY = (int)((ch / 2) + (this.getY()-cy));
-
-        double factorY = (double)h / (double)ch;
-        double factorX = (double)w / (double)cw;
-
-        tempX = (int)((double)tempX * factorX);
-        tempY = (int)((double)tempY * factorY);
-
-        double tempW = ((double) this.getW() * factorX);
-        double tempH = ((double) this.getH() * factorY);
+        Vector pos = this.getViewPortCords(cx, cy, cw, ch, w, h);
+        Vector size = this.getViewPortSize(cx, cy, cw, ch, w, h);
 
         double[] playerModelX =  {
-                -(tempW/2),
-                (tempW/2),
+                -(size.getX()/2),
+                (size.getX()/2),
                 0
         };
         double[] playerModelY =  {
-                (tempH/2),
-                (tempH/2),
-                -(tempH/2)
+                (size.getY()/2),
+                (size.getY()/2),
+                -(size.getY()/2)
         };
-        double roatet = 0;
 
         double angle = this.getAngleToMouse(cx, cy, cw, ch, w, h, mx, my);
 
-        gc.translate(tempX, tempY);
+        gc.translate(pos.getX(), pos.getY());
         gc.rotate(angle);
         //gc.fillPolygon(playerModelX, playerModelY, 3);
-        gc.fillRect(-tempW/2, -tempH/2, tempW, tempH);
+        //gc.fillRect(-size.getX()/2, -size.getY()/2, size.getX(), size.getY());
+        gc.fillPolygon(playerModelX, playerModelY, 3);
         gc.restore();
         //gc.fillRect(tempX - (tempW/2), tempY - (tempH/2), tempW, tempH);
 

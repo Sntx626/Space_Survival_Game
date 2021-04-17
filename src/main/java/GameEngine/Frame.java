@@ -5,6 +5,7 @@ import GameEngine.UI.UI;
 import GameEngine.World.World;
 import Viewer.Renderer;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 
 public class Frame {
 
@@ -29,6 +30,10 @@ public class Frame {
     }
 
     public void keyIsReleased(KeyEvent key) {
+
+    }
+
+    public void mouseIsClicked(MouseEvent event) {
 
     }
 
