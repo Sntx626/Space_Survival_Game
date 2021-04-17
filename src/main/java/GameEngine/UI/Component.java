@@ -4,6 +4,7 @@ import javafx.scene.canvas.GraphicsContext;
 
 public class Component {
 
+
     String type;
     boolean enabled = true;
 

@@ -4,6 +4,13 @@ import javafx.scene.canvas.GraphicsContext;
 
 public class Entity implements Comparable<Entity>{
 
+    public enum HITBOX {
+        rect,
+        circle
+    }
+
+    HITBOX hitbox = HITBOX.circle;
+
     private double x, y;
     int z_index = 0;
     int w, h;
@@ -47,6 +54,28 @@ public class Entity implements Comparable<Entity>{
         this.setY(this.getY() + velY);
     }
 
+
+    public boolean isColliding(Entity e) {
+        if (this.hitbox == HITBOX.circle && e.hitbox == HITBOX.circle) {
+            double dx = this.x - e.getX();
+            double dy = this.y - e.getY();
+            double distance = Math.sqrt(dx * dx + dy * dy);
+            return (distance < this.getW() + e.getW());
+        } else if (this.hitbox == HITBOX.rect && e.hitbox == HITBOX.rect) {
+            double e1X = this.x - this.getW()/2;
+            double e1Y = this.y - this.getH()/2;
+            double e2X = e.getX() - e.getW()/2;
+            double e2Y = e.getY() - e.getH()/2;
+            return (e1X < e2X + e.getW() &&
+                    e1X + this.getW() > e2X &&
+                    e1Y < e2Y + e.getH() &&
+                    e1Y + this.getH() > e2Y);
+        } else {
+
+        }
+
+        return false;
+    }
 
     /*
      * gc = GraphicsContext

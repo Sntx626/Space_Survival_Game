@@ -37,8 +37,8 @@ public class Game extends Frame implements Runnable{
         p.setW(30);
 
         f = new Fog();
-        f.setH(400);
-        f.setW(400);
+        f.setH(1080);
+        f.setW(1080);
 
         Astroid a = new Astroid();
         a.setZ_index(-1);
