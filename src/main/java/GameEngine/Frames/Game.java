@@ -39,14 +39,14 @@ public class Game extends Frame implements Runnable{
         p.setZ_index(1);
         p.setX(0);
         p.setY(0);
-        p.setH(100);
+        p.setH(64);
         p.setW(64);
         p.setCanCollide(true);
         p.enableHealthBar();
 
         f = new Fog(this);
-        f.setH(1080);
-        f.setW(1080);
+        f.setH(600);
+        f.setW(600);
 
         Astroid a = new Astroid(this);
         a.setZ_index(-1);
@@ -100,15 +100,16 @@ public class Game extends Frame implements Runnable{
     public void mouseIsClicked(MouseEvent event) {
         MainingLaser laser = new MainingLaser(this, this.getWorld().getPlayer());
         laser.setZ_index(-1);
+        laser.setStopRender(false);
         this.getWorld().addEntity(laser);
     }
 
     @Override
     public void mouseIsRELEASED(MouseEvent event) {
-        for (Entity current : this.getWorld().getEntities()) {
+        ArrayList<Entity> entTemp = (ArrayList<Entity>)this.getWorld().getEntities().clone();
+        for (Entity current : entTemp) {
             if(current.getClass().equals(MainingLaser.class)){
-                this.getWorld().getEntities().remove(current);
-                break;
+                current.setDelete(true);
             }
         }
     }
@@ -147,7 +148,13 @@ public class Game extends Frame implements Runnable{
                 f.setX(p.getX());
                 f.setY(p.getY());
 
+
                 ArrayList<Entity> tempEnt = (ArrayList<Entity>)this.getWorld().getEntities().clone();
+                for (Entity e1: tempEnt) {
+                    if (e1.isDelete()) this.getWorld().getEntities().remove(e1);
+                }
+
+                tempEnt = (ArrayList<Entity>)this.getWorld().getEntities().clone();
 
                 for (Entity e1: tempEnt) {
                     if (e1.isCanCollide()){

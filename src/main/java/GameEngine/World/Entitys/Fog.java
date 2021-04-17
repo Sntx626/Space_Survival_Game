@@ -58,7 +58,7 @@ public class Fog  extends Entity {
         //System.out.println(getClass().getResource("files:rsc/entity_data/Fog.jpg"));
 
 
-        gc.scale(factorX, factorY);
+        gc.scale(factorX * ((double)this.getW() / 1080.0), factorY * ((double)this.getW() / 1080.0));
         gc.drawImage(img, -img.getWidth()/2, -img.getHeight()/2);
 
 

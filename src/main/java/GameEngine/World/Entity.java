@@ -10,6 +10,29 @@ public class Entity implements Comparable<Entity>{
 
     Frame frame;
 
+    public boolean isDelete() {
+        return delete;
+    }
+
+    public void setDelete(boolean delete) {
+        this.delete = delete;
+    }
+
+    boolean delete = false;
+
+    public boolean isStopRender() {
+        return stopRender;
+    }
+
+    public void setStopRender(boolean stopRender) {
+        this.stopRender = stopRender;
+    }
+
+    boolean stopRender = true;
+
+
+
+
     public Entity(Frame frame) {
         this.frame = frame;
     }

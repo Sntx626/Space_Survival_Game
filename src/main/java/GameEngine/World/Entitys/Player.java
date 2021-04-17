@@ -51,8 +51,8 @@ public class Player extends Entity {
         gc.translate(pos.getX(), pos.getY());
         gc.rotate(angle);
         //gc.fillPolygon(playerModelX, playerModelY, 3);
-        //gc.fillRect(-size.getX()/2, -size.getY()/2, size.getX(), size.getY());
-        gc.fillPolygon(playerModelX, playerModelY, 3);
+        gc.fillRect(-size.getX()/2, -size.getY()/2, size.getX(), size.getY());
+        //gc.fillPolygon(playerModelX, playerModelY, 3);
         gc.restore();
         //gc.fillRect(tempX - (tempW/2), tempY - (tempH/2), tempW, tempH);
 

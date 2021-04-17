@@ -150,7 +150,7 @@ public class Renderer{
                 Collections.sort(entities);
 
                 for (Entity e : entities) {
-                    if (Math.abs(c.getX() - e.getX()) <= (c.getW() / 2) + e.getW() && Math.abs(c.getY() - e.getY()) <= e.getH() + (c.getH() / 2)) {
+                    if ((e.isStopRender() && Math.abs(c.getX() - e.getX()) <= (c.getW() / 2) + e.getW() && Math.abs(c.getY() - e.getY()) <= e.getH() + (c.getH() / 2)) || !e.isStopRender()) {
                         e.render(canvas.getGraphicsContext2D(), (int) c.getX(), (int) c.getY(), c.getW(), c.getH(), WIDTH, HEIGHT-40, mouseX, mouseY);
                     }
                 }
