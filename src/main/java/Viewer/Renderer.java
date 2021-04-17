@@ -1,5 +1,6 @@
 package Viewer;
 
+import GameEngine.Background.Background;
 import GameEngine.Frame;
 import GameEngine.Frames.Game;
 import GameEngine.Frames.StartMenu;
@@ -30,10 +31,13 @@ public class Renderer{
     Stage stage;
     Canvas canvas;
 
-
     Frame frame;
 
     int mouseX = 0, mouseY = 0;
+
+    public Canvas getcanvas() {
+        return canvas;
+    }
 
     boolean continueRendering = true;
 
@@ -44,14 +48,14 @@ public class Renderer{
     public Renderer(Stage stage) {
         this.stage = stage;
 
-        //this.changeFrame(new StartMenu(this));
-        this.changeFrame(new Game(this));
-
         //ADD CANVAS TO PANE
-        var root = new Group();
+        Group root = new Group();
         Canvas canvas = new Canvas(WIDTH, HEIGHT);
         this.canvas = canvas;
         root.getChildren().add(this.canvas);
+
+        //this.changeFrame(new StartMenu(this));
+        this.changeFrame(new Game(this));
 
         var scene = new Scene(root,WIDTH, HEIGHT);
         scene.addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
@@ -115,14 +119,19 @@ public class Renderer{
             {
                 double t = (currentNanoTime - startNanoTime) / 1000000000.0;
 
-                // background
+                Camera c = frame.getWorld().getCamera();
 
+                // background
+                /*
                 canvas.getGraphicsContext2D().setFill(Color.WHITE);
                 canvas.getGraphicsContext2D().fillRect(0, 0, WIDTH, HEIGHT);
+                */
+                Background Background = new Background("file:rsc/background_data/Backgroundtest.png", canvas);
+                frame.getBackground().render(c.getX(), c.getY());
 
                 // middleground
 
-                Camera c = frame.getWorld().getCamera();
+
 
                 ArrayList<Entity> entities = frame.getWorld().getEntities();
                 Collections.sort(entities);

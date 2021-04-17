@@ -79,10 +79,10 @@ public class Entity implements Comparable<Entity>{
 
     /*
      * gc = GraphicsContext
-     * cx = current x
-     * cy = current y
-     * cw = current width
-     * ch = current height
+     * cx = camera x
+     * cy = camera y
+     * cw = camera width
+     * ch = camera height
      * w = width
      * h = height
      * mx = movement x

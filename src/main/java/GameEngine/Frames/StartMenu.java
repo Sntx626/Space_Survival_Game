@@ -13,7 +13,7 @@ public class StartMenu extends Frame {
         // generate ui, world & background -> pass to frame
         setUi(new UI(this));
         setWorld(new World(this));
-        setBackground(new Background(this, null, 800, 600, false));
+        setBackground(new Background("file:rsc/background_data/Backgroundtest.png", renderer.getcanvas()));
     }
 
     @Override
