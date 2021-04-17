@@ -1,7 +1,10 @@
 package GameEngine.World;
 
 import GameEngine.Frame;
+import GameEngine.Vector;
 import javafx.scene.canvas.GraphicsContext;
+
+import java.util.ArrayList;
 
 public class Entity implements Comparable<Entity>{
 
@@ -26,6 +29,15 @@ public class Entity implements Comparable<Entity>{
     private double x, y;
 
 
+    public ArrayList<Vector> getCollisions() {
+        return collisions;
+    }
+
+    public void setCollisions(ArrayList<Vector> collisions) {
+        this.collisions = collisions;
+    }
+
+    ArrayList<Vector> collisions = new ArrayList<Vector>();
 
     boolean canCollide = false;
     int z_index = 0;
@@ -58,6 +70,12 @@ public class Entity implements Comparable<Entity>{
 
         this.velX += this.accX;
         this.velY += this.accY;
+
+        for (Vector v: this.getCollisions()) {
+
+        }
+        this.setCollisions(new ArrayList<Vector>());
+
 
         mag = Math.sqrt(this.velX * this.velX + this.velY * this.velY);
         if (mag > maxSpeed) {

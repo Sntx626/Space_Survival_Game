@@ -1,10 +1,13 @@
 package GameEngine.World.Entitys;
 
 import GameEngine.Frame;
+import GameEngine.Vector;
 import GameEngine.World.Entity;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
+
+import java.util.ArrayList;
 
 public class Player extends Entity {
 
@@ -13,9 +16,16 @@ public class Player extends Entity {
     }
 
 
+
+
     @Override
     public void onColliding(Entity e) {
-        System.out.println("Ouch Astroid");
+        if (e.getClass() == Astroid.class) {
+            System.out.println("Ouch Astroid");
+            double momX = this.getX()-e.getX();
+            double momY = this.getY()-e.getY();
+            this.getCollisions().add(new Vector(momX, momY));
+        }
     }
 
     @Override
