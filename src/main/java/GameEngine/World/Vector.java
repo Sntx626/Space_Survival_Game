@@ -1,4 +1,4 @@
-package GameEngine;
+package GameEngine.World;
 
 public class Vector {
     double x;

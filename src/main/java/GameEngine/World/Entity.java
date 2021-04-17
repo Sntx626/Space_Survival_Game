@@ -1,7 +1,6 @@
 package GameEngine.World;
 
 import GameEngine.Frame;
-import GameEngine.Vector;
 import javafx.scene.canvas.GraphicsContext;
 
 import java.util.ArrayList;
