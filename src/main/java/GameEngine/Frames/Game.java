@@ -22,7 +22,7 @@ public class Game extends Frame implements Runnable{
         // generate ui, world & background -> pass to frame
         setUi(new UI(this));
         setWorld(new World(this));
-        setBackground(new Background(this));
+        setBackground(new Background(this, null, 800, 600, false));
 
         this.getWorld().setCanZoom(true);
 
