@@ -3,6 +3,7 @@ package Viewer;
 import GameEngine.Frame;
 import GameEngine.Frames.Game;
 import GameEngine.Frames.StartMenu;
+import GameEngine.UI.Component;
 import GameEngine.World.Entity;
 import GameEngine.World.Entitys.Camera;
 import javafx.animation.AnimationTimer;
@@ -110,27 +111,30 @@ public class Renderer{
             {
                 double t = (currentNanoTime - startNanoTime) / 1000000000.0;
 
-                //background
+                // background
+
                 canvas.getGraphicsContext2D().setFill(Color.WHITE);
                 canvas.getGraphicsContext2D().fillRect(0, 0, WIDTH, HEIGHT);
 
+                // middleground
 
-                //midleground
-                ArrayList<Entity> entities = frame.getWorld().getEntities();
                 Camera c = frame.getWorld().getCamera();
-                Collections.sort(entities);
-                for (int i = 0; i < entities.size(); i++) {
-                    Entity e = entities.get(i);
-                    if (Math.abs(c.getX() - e.getX()) <= (c.getW()/2) + e.getW() && Math.abs(c.getY() - e.getY()) <= e.getH() + (c.getH()/2)) {
 
-                        e.render(canvas.getGraphicsContext2D(), (int)c.getX(), (int)c.getY(), c.getW(), c.getH(), WIDTH, HEIGHT, mouseX, mouseY);
+                ArrayList<Entity> entities = frame.getWorld().getEntities();
+                Collections.sort(entities);
+
+                for (Entity e : entities) {
+                    if (Math.abs(c.getX() - e.getX()) <= (c.getW() / 2) + e.getW() && Math.abs(c.getY() - e.getY()) <= e.getH() + (c.getH() / 2)) {
+                        e.render(canvas.getGraphicsContext2D(), (int) c.getX(), (int) c.getY(), c.getW(), c.getH(), WIDTH, HEIGHT, mouseX, mouseY);
                     }
                 }
 
-                //foreground
+                // foreground
 
-
-
+                for (Component component: frame.getUi().getComponents()) {
+                    // render component
+                    component.render(canvas.getGraphicsContext2D(), (int) c.getX(), (int) c.getY(), c.getW(), c.getH(), WIDTH, HEIGHT);
+                }
 
                 framesInTheLastSecond++;
                 now = System.currentTimeMillis();

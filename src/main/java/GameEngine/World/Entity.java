@@ -62,6 +62,7 @@ public class Entity implements Comparable<Entity>{
     public void render(GraphicsContext gc, int cx, int cy, int cw, int ch, int w, int h, int mx, int my){
 
     }
+
     public void setX(double x) {
         this.x = x;
     }
@@ -77,6 +78,7 @@ public class Entity implements Comparable<Entity>{
     public void setW(int w) {
         this.w = w;
     }
+
     public void setH(int h) {
         this.h = h;
     }
@@ -88,9 +90,11 @@ public class Entity implements Comparable<Entity>{
     public int getW() {
         return w;
     }
+
     public int getH() {
         return h;
     }
+
     public double getX() {
         return x;
     }

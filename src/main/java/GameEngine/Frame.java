@@ -27,6 +27,7 @@ public class Frame {
     public void keyIsPressed(KeyEvent key) {
 
     }
+
     public void keyIsReleased(KeyEvent key) {
 
     }
