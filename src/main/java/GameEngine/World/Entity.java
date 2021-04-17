@@ -21,12 +21,15 @@ public class Entity implements Comparable<Entity>{
     public void move () {
         double mag = Math.sqrt(this.velX * this.velX + this.velY * this.velY);
         double fricX = 0, fricY = 0;
-        if (mag != 0) {
+        if (mag != 0 && mag > 0.01 && mag < -0.01) {
             fricX = (this.velX * -1) / mag;
             fricY = (this.velY * -1) / mag;
+        }else{
+            fricX = this.velX * -1;
+            fricY = this.velY * -1;
         }
-        fricX *= 0.007;
-        fricY *= 0.007;
+        fricX *= 0.005;
+        fricY *= 0.005;
         addForce(fricX, fricY);
 
 
@@ -45,7 +48,17 @@ public class Entity implements Comparable<Entity>{
     }
 
 
-
+    /*
+     * gc = GraphicsContext
+     * cx = current x
+     * cy = current y
+     * cw = current width
+     * ch = current height
+     * w = width
+     * h = height
+     * mx = movement x
+     * my = movement y
+     */
     public void render(GraphicsContext gc, int cx, int cy, int cw, int ch, int w, int h, int mx, int my){
 
     }
