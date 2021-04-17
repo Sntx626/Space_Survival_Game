@@ -16,8 +16,8 @@ public class Fog  extends Entity {
     public void render(GraphicsContext gc, int cx, int cy, int cw, int ch, int w, int h, int mx, int my) {
         gc.save();
         gc.translate((double)w/2.0, (double)h/2.0);
-        Rectangle rect = new Rectangle(0, 0, w, h);
-        Circle circ = new Circle(h / 2, h / 2, Math.min(w, h) / 2);
+        double factorY = (double)h / (double)ch;
+        double factorX = (double)w / (double)cw;
 
         ArrayList<Double> pathX = new ArrayList<Double>();
         ArrayList<Double> pathY = new ArrayList<Double>();
@@ -35,8 +35,8 @@ public class Fog  extends Entity {
         pathX.add(0.0);
         pathY.add((double)h/2.0);
         for (double i = 0; i <= 360; i += 360/circlePoints) {
-            pathX.add(Math.sin(Math.toRadians(i)) * ((double)this.getW()/2.0));
-            pathY.add(Math.cos(Math.toRadians(i)) * ((double)this.getH()/2.0));
+            pathX.add(Math.sin(Math.toRadians(i)) * ((double)this.getW()*factorX/2.0));
+            pathY.add(Math.cos(Math.toRadians(i)) * ((double)this.getH()*factorY/2.0));
         }
 
         double[] modelX = new double[pathX.size()];
