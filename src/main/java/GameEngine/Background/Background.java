@@ -29,24 +29,28 @@ public class Background {
 
     public void render(double cx, double cy){
         GraphicsContext gc = canvas.getGraphicsContext2D();
-        //gc.setFill(Color.WHITE);
-        //gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
         canvas.getGraphicsContext2D().drawImage(Background, -cx%canvas.getWidth(), -cy%canvas.getHeight(), canvas.getWidth(), canvas.getHeight());
         if(cx%canvas.getWidth() > 0){
             canvas.getGraphicsContext2D().drawImage(Background, -cx%canvas.getWidth() + canvas.getWidth(), -cy%canvas.getHeight(), canvas.getWidth(), canvas.getHeight());
+            if(cy%canvas.getHeight() > 0){
+                canvas.getGraphicsContext2D().drawImage(Background, -cx%canvas.getWidth() + canvas.getWidth(), -cy%canvas.getHeight() + canvas.getHeight(), canvas.getWidth(), canvas.getHeight());
+            } else if(cy%canvas.getHeight() < 0){
+                canvas.getGraphicsContext2D().drawImage(Background, -cx%canvas.getWidth() + canvas.getWidth(), -cy%canvas.getHeight() - canvas.getHeight(), canvas.getWidth(), canvas.getHeight());
+            }
         } else if(cx%canvas.getWidth() < 0){
             canvas.getGraphicsContext2D().drawImage(Background, -cx%canvas.getWidth() - canvas.getWidth(), -cy%canvas.getHeight(), canvas.getWidth(), canvas.getHeight());
+            if(cy%canvas.getHeight() > 0){
+                canvas.getGraphicsContext2D().drawImage(Background, -cx%canvas.getWidth() - canvas.getWidth(), -cy%canvas.getHeight() + canvas.getHeight(), canvas.getWidth(), canvas.getHeight());
+            } else if(cy%canvas.getHeight() < 0){
+                canvas.getGraphicsContext2D().drawImage(Background, -cx%canvas.getWidth() - canvas.getWidth(), -cy%canvas.getHeight() - canvas.getHeight(), canvas.getWidth(), canvas.getHeight());
+            }
         }
         if(cy%canvas.getHeight() > 0){
             canvas.getGraphicsContext2D().drawImage(Background, -cx%canvas.getWidth(), -cy%canvas.getHeight() + canvas.getHeight(), canvas.getWidth(), canvas.getHeight());
-        } else if(cx%canvas.getHeight() < 0){
+        } else if(cy%canvas.getHeight() < 0){
             canvas.getGraphicsContext2D().drawImage(Background, -cx%canvas.getWidth(), -cy%canvas.getHeight() - canvas.getHeight(), canvas.getWidth(), canvas.getHeight());
         }
-        /*
-        if(cy < (canvas.getHeight()/2)){
-            canvas.getGraphicsContext2D().drawImage(Background, cx*2, cy*2, canvas.getWidth(), canvas.getHeight());
-        }*/
     }
 
 }
