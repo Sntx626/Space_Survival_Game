@@ -59,6 +59,7 @@ public class Game extends Frame implements Runnable{
 
     @Override
     public void keyIsPressed(KeyEvent key) {
+        System.out.println("-------------");
         if (key.getCode() == KeyCode.D) {
             pd = true;
         }
@@ -118,7 +119,7 @@ public class Game extends Frame implements Runnable{
                 }
                 this.p.addForce(accX, accY);
 
-
+                System.out.println(this.p.getX() + " " + this.p.getY());
                 this.getWorld().run();
                 this.getWorld().getCamera().setX(p.getX());
                 this.getWorld().getCamera().setY(p.getY());
