@@ -4,6 +4,7 @@ import GameEngine.Background.Background;
 import GameEngine.Frame;
 import GameEngine.UI.UI;
 import GameEngine.World.Entitys.Astroid;
+import GameEngine.World.Entitys.Fog;
 import GameEngine.World.Entitys.Player;
 import GameEngine.World.World;
 import Viewer.Renderer;
@@ -13,7 +14,7 @@ import javafx.scene.input.KeyEvent;
 public class Game extends Frame implements Runnable{
 
     Player p;
-
+    Fog f;
     boolean pw = false, ps = false, pa = false, pd = false;
 
     public Game(Renderer renderer) {
@@ -25,12 +26,18 @@ public class Game extends Frame implements Runnable{
 
 
 
+
+
         p = new Player();
         p.setZ_index(1);
         p.setX(0);
         p.setY(0);
         p.setH(40);
         p.setW(30);
+
+        f = new Fog();
+        f.setH(400);
+        f.setW(400);
 
         Astroid a = new Astroid();
         a.setZ_index(-1);
@@ -40,6 +47,7 @@ public class Game extends Frame implements Runnable{
         a.setW(100);
         this.getWorld().addEntity(a);
         this.getWorld().addEntity(p);
+        this.getWorld().addEntity(f);
         System.out.println(this.getWorld().getEntities().get(0).getX());
         new Thread(this).start();
     }
@@ -108,7 +116,8 @@ public class Game extends Frame implements Runnable{
                 this.getWorld().run();
                 this.getWorld().getCamera().setX(p.getX());
                 this.getWorld().getCamera().setY(p.getY());
-
+                f.setX(p.getX());
+                f.setY(p.getY());
 
                 Thread.sleep(1);
             }

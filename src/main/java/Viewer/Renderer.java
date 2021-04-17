@@ -35,7 +35,7 @@ public class Renderer{
 
     boolean continueRendering = true;
 
-    int WIDTH = 16*50, HEIGHT = 9*50;
+    int WIDTH = 16*80, HEIGHT = 9*80;
 
     int currentFramerate = 0;
 
