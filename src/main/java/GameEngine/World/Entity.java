@@ -70,17 +70,17 @@ public class Entity implements Comparable<Entity>{
         this.velX += this.accX;
         this.velY += this.accY;
 
+        for (Vector v : this.getCollisions()) {
+            this.velX *= (Math.abs(v.getX()/v.Length())*-1);
+            this.velY *= (Math.abs(v.getY()/v.Length())*-1);
+        }
+        this.setCollisions(new ArrayList<Vector>());
+
         mag = Math.sqrt(this.velX * this.velX + this.velY * this.velY);
         if (mag > maxSpeed) {
             this.velY = (this.velY / mag) * maxSpeed;
             this.velX = (this.velX / mag) * maxSpeed;
         }
-
-        for (Vector v : this.getCollisions()) {
-            System.out.println("Collision: " + v.getX() + " | " + v.getY());
-        }
-        this.setCollisions(new ArrayList<Vector>());
-
 
         this.accX = 0;
         this.accY = 0;

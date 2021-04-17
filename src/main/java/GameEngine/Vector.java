@@ -20,6 +20,10 @@ public class Vector {
         this.y = y;
     }
 
+    public double Length() {
+        return Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2));
+    }
+
     public Vector(double x, double y) {
         this.x = x;
         this.y = y;
