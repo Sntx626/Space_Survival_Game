@@ -9,6 +9,7 @@ import GameEngine.World.Entitys.Astroid;
 import GameEngine.World.Entitys.Fog;
 import GameEngine.World.Entitys.Player;
 import GameEngine.World.Projectiles.MainingLaser;
+import GameEngine.World.Projectiles.Rocket;
 import GameEngine.World.World;
 import Viewer.Renderer;
 import javafx.scene.input.KeyCode;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 public class Game extends Frame implements Runnable{
 
     Player p;
-    public Fog f;
+    Fog f;
     boolean pw = false, ps = false, pa = false, pd = false;
 
     public Game(Renderer renderer) {
@@ -97,6 +98,12 @@ public class Game extends Frame implements Runnable{
         }
         if (key.getCode() == KeyCode.S) {
             ps = false;
+        }
+        if(key.getCode() == KeyCode.R){
+            System.out.println("Rocked Fired");
+            Rocket rocket = new Rocket(this, this.getWorld().getPlayer());
+            rocket.setZ_index(-1);
+            this.getWorld().addEntity(rocket);
         }
     }
 

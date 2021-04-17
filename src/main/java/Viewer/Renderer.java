@@ -98,6 +98,7 @@ public class Renderer{
             }
             System.out.println("MOUSE RELEASED");
         });
+
         stage.minHeightProperty().bind(stage.widthProperty().multiply(9.0/16.0));
         stage.maxHeightProperty().bind(stage.widthProperty().multiply(9.0/16.0));
 
