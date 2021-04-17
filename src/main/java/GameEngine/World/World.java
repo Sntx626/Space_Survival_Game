@@ -11,7 +11,7 @@ public class World{
     Frame frame;
 
     ArrayList<Entity> entities = new ArrayList<Entity>();
-    Camera camera = new Camera();
+    Camera camera;
 
     public boolean isCanZoom() {
         return canZoom;
@@ -24,6 +24,7 @@ public class World{
     boolean canZoom = false;
 
     public World(Frame frame) {
+        camera = new Camera(frame);
         camera.setX(0);
         camera.setY(0);
         camera.setW(16*100);

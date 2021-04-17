@@ -18,12 +18,12 @@ public class UI {
         return components;
     }
 
-    public ArrayList<Component> addComponent() {
-        return components;
+    public void addComponent(Component component) {
+        this.components.add(component);
     }
 
-    public ArrayList<Component> removeComponent() {
-        return components;
+    public void removeComponent(Component component) {
+        this.components.remove(component);
     }
 
 }

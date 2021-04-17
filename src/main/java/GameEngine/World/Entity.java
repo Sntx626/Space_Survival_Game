@@ -1,8 +1,15 @@
 package GameEngine.World;
 
+import GameEngine.Frame;
 import javafx.scene.canvas.GraphicsContext;
 
 public class Entity implements Comparable<Entity>{
+
+    Frame frame;
+
+    public Entity(Frame frame) {
+        this.frame = frame;
+    }
 
     public enum HITBOX {
         rect,

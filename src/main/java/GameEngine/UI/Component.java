@@ -1,31 +1,35 @@
 package GameEngine.UI;
 
+import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 
 public class Component {
 
-
-    String type;
     boolean enabled = true;
 
-    int cx, cy, cw, ch, w, h;
+    int x, y, w, h;
 
-    public Component(String type) {
-        this.type = type;
+    public Component() {}
+
+    public void render(GraphicsContext gc){
     }
 
-    public void render(GraphicsContext gc, int cx, int cy, int cw, int ch, int w, int h){
-        switch (this.type) {
-            case "TextBox":
-                break;
-            default:
-                System.out.println("Component type unknown!");
-                break;
-        }
+    public int getX() {
+        return x;
     }
 
-    public String getType() {
-        return type;
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
     }
 
     public boolean isEnabled() {
@@ -34,38 +38,6 @@ public class Component {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
-    }
-
-    public int getCx() {
-        return cx;
-    }
-
-    public void setCx(int cx) {
-        this.cx = cx;
-    }
-
-    public int getCy() {
-        return cy;
-    }
-
-    public void setCy(int cy) {
-        this.cy = cy;
-    }
-
-    public int getCw() {
-        return cw;
-    }
-
-    public void setCw(int cw) {
-        this.cw = cw;
-    }
-
-    public int getCh() {
-        return ch;
-    }
-
-    public void setCh(int ch) {
-        this.ch = ch;
     }
 
     public int getW() {

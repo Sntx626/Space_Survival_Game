@@ -1,5 +1,6 @@
 package GameEngine.World.Entitys;
 
+import GameEngine.Frame;
 import GameEngine.World.Entity;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -10,6 +11,12 @@ import java.util.ArrayList;
 public class Fog  extends Entity {
 
     Image img = new Image("file:rsc/entity_data/Fog.png");
+    Frame frame;
+
+    public Fog(Frame frame) {
+        super(frame);
+    }
+
     @Override
     public void render(GraphicsContext gc, int cx, int cy, int cw, int ch, int w, int h, int mx, int my) {
         gc.save();

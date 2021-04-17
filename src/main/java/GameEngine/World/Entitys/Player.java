@@ -1,11 +1,16 @@
 package GameEngine.World.Entitys;
 
+import GameEngine.Frame;
 import GameEngine.World.Entity;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 
 public class Player extends Entity {
+
+    public Player(Frame frame) {
+        super(frame);
+    }
 
 
     @Override

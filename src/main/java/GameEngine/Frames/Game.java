@@ -2,6 +2,7 @@ package GameEngine.Frames;
 
 import GameEngine.Background.Background;
 import GameEngine.Frame;
+import GameEngine.UI.Components.TextBox;
 import GameEngine.UI.UI;
 import GameEngine.World.Entity;
 import GameEngine.World.Entitys.Astroid;
@@ -27,10 +28,10 @@ public class Game extends Frame implements Runnable{
 
         this.getWorld().setCanZoom(true);
 
+        this.getUi().addComponent(new TextBox("Lorem Ipsum", 10, 20));
+        this.getUi().addComponent(new TextBox("Dolor Sit Amet", 10, 40));
 
-
-
-        p = new Player();
+        p = new Player(this);
         p.setZ_index(-2);
         p.setX(0);
         p.setY(0);
@@ -39,11 +40,11 @@ public class Game extends Frame implements Runnable{
         p.setCanCollide(true);
         p.setHitbox(Entity.HITBOX.rect);
 
-        f = new Fog();
+        f = new Fog(this);
         f.setH(1080);
         f.setW(1080);
 
-        Astroid a = new Astroid();
+        Astroid a = new Astroid(this);
         a.setZ_index(-1);
         a.setX(-300);
         a.setY(-250);
@@ -139,7 +140,7 @@ public class Game extends Frame implements Runnable{
 
                 Thread.sleep(1);
             }
-        }catch (InterruptedException e) {
+        } catch (InterruptedException e) {
 
         }
     }
