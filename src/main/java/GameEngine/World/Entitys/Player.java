@@ -16,7 +16,7 @@ public class Player extends Entity {
     @Override
     public void render(GraphicsContext gc, int cx, int cy, int cw, int ch, int w, int h, int mx, int my) {
         gc.save();
-        gc.setFill(Color.rgb(20, 20, 20));
+        gc.setFill(Color.web("#283ED1"));
         int tempX = (int)((cw / 2) + (this.getX()-cx));
         int tempY = (int)((ch / 2) + (this.getY()-cy));
 
@@ -52,7 +52,7 @@ public class Player extends Entity {
         }
 
         gc.translate(tempX, tempY);
-        //gc.rotate(angle);
+        gc.rotate(angle);
         //gc.fillPolygon(playerModelX, playerModelY, 3);
         gc.fillRect(-tempW/2, -tempH/2, tempW, tempH);
         gc.restore();

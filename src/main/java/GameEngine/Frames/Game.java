@@ -23,7 +23,7 @@ public class Game extends Frame implements Runnable{
         // generate ui, world & background -> pass to frame
         setUi(new UI(this));
         setWorld(new World(this));
-        setBackground(new Background("file:rsc/background_data/Backgroundtest.png", renderer.getcanvas()));
+        setBackground(new Background("file:rsc/background_data/Background.jpg", renderer.getcanvas()));
 
         this.getWorld().setCanZoom(true);
 
@@ -119,7 +119,6 @@ public class Game extends Frame implements Runnable{
                 }
                 this.p.addForce(accX, accY);
 
-                System.out.println(this.p.getX() + " " + this.p.getY());
                 this.getWorld().run();
                 this.getWorld().getCamera().setX(p.getX());
                 this.getWorld().getCamera().setY(p.getY());

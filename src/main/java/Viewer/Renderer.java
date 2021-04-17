@@ -125,8 +125,6 @@ public class Renderer{
 
                 //canvas.getGraphicsContext2D().setFill(Color.WHITE);
                 //canvas.getGraphicsContext2D().fillRect(0, 0, WIDTH, HEIGHT);
-
-                Background Background = new Background("file:rsc/background_data/Backgroundtest.png", canvas);
                 frame.getBackground().render(c.getX(), c.getY());
 
                 // middleground
