@@ -180,8 +180,28 @@ public class Entity implements Comparable<Entity>{
         tempY = (int)((double)tempY * factorY);
         return new Vector(tempX, tempY);
     }
+    public Vector getViewPortCords (double cx, double cy, double cw, double ch, double w, double h) {
+        int tempX = (int)((cw / 2) + (this.getX()-cx));
+        int tempY = (int)((ch / 2) + (this.getY()-cy));
+
+        double factorY = (double)h / (double)ch;
+        double factorX = (double)w / (double)cw;
+
+        tempX = (int)((double)tempX * factorX);
+        tempY = (int)((double)tempY * factorY);
+        return new Vector(tempX, tempY);
+    }
 
     public Vector getViewPortSize (int cx, int cy, int cw, int ch, int w, int h) {
+
+        double factorY = (double)h / (double)ch;
+        double factorX = (double)w / (double)cw;
+
+        double tempW = ((double) this.getW() * factorX);
+        double tempH = ((double) this.getH() * factorY);
+        return new Vector(tempW, tempH);
+    }
+    public Vector getViewPortSize (double cx, double cy, double cw, double ch, double w, double h) {
 
         double factorY = (double)h / (double)ch;
         double factorX = (double)w / (double)cw;
