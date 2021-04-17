@@ -9,6 +9,7 @@ import GameEngine.World.Entitys.Astroid;
 import GameEngine.World.Entitys.Fog;
 import GameEngine.World.Entitys.Player;
 import GameEngine.World.Projectiles.MainingLaser;
+import GameEngine.World.Projectiles.Rocket;
 import GameEngine.World.World;
 import Viewer.Renderer;
 import javafx.scene.input.KeyCode;
@@ -45,8 +46,8 @@ public class Game extends Frame implements Runnable{
         p.enableHealthBar();
 
         f = new Fog(this);
-        f.setH(600);
-        f.setW(600);
+        f.setH(3840);
+        f.setW(3840);
 
         Astroid a = new Astroid(this);
         a.setZ_index(-1);
@@ -93,6 +94,12 @@ public class Game extends Frame implements Runnable{
         }
         if (key.getCode() == KeyCode.S) {
             ps = false;
+        }
+        if(key.getCode() == KeyCode.R){
+            System.out.println("Rocked Fired");
+            Rocket rocket = new Rocket(this, this.getWorld().getPlayer());
+            rocket.setZ_index(-1);
+            this.getWorld().addEntity(rocket);
         }
     }
 
