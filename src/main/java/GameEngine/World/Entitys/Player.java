@@ -1,13 +1,10 @@
 package GameEngine.World.Entitys;
 
 import GameEngine.Frame;
-import GameEngine.Vector;
+import GameEngine.World.Vector;
 import GameEngine.World.Entity;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Polygon;
-
-import java.util.ArrayList;
 
 public class Player extends Entity {
 

@@ -1,4 +1,4 @@
-package GameEngine;
+package GameEngine.World;
 
 public class Vector {
     double x;
@@ -18,6 +18,10 @@ public class Vector {
 
     public void setY(double y) {
         this.y = y;
+    }
+
+    public double Length() {
+        return Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2));
     }
 
     public Vector(double x, double y) {
