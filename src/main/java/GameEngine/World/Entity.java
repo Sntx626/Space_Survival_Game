@@ -31,7 +31,9 @@ public class Entity implements Comparable<Entity>{
     boolean stopRender = true;
 
 
-
+    public Frame getFrame() {
+        return frame;
+    }
 
     public Entity(Frame frame) {
         this.frame = frame;
@@ -72,15 +74,38 @@ public class Entity implements Comparable<Entity>{
     int maxHp = -1; // hp > 0 -> is alive; hp == 0 -> dead; hp == -1 -> No hp/invulnerable
     HealthBar healthBar;
 
+    public int getHp() {
+        return hp;
+    }
+
+    public void setHp(int hp) {
+        this.hp = hp;
+    }
+
+    public int getMaxHp() {
+        return maxHp;
+    }
+
+    public void setMaxHp(int maxHp) {
+        this.maxHp = maxHp;
+    }
+
     public void enableHealthBar() {
         if (healthBar == null) {
             healthBar = new HealthBar(this);
             this.frame.getUi().addComponent(healthBar);
+        } else {
+            System.out.println("Health Bar already enabled!");
         }
     }
 
     public void disableHealthBar() {
-
+        if (healthBar != null) {
+            this.frame.getUi().removeComponent(healthBar);
+            healthBar =  null;
+        } else {
+            System.out.println("Health Bar already disabled!");
+        }
     }
 
     public void addForce(double fX, double fY) {

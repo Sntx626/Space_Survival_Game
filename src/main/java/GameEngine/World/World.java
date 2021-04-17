@@ -47,14 +47,12 @@ public class World{
             delta /= 1;
             delta = (int)delta;
             camera.setH((int)(camera.getH() + (delta * 9)/10));
-            System.out.println((delta * 16)/10);
             if (camera.getH() > maxY) {
                 camera.setH(maxY);
             }
             if (camera.getH() < minY) {
                 camera.setH(minY);
             }
-            System.out.println((delta * 9)/10);
             camera.setW((int)(camera.getW() + (delta * 16)/10));
             if (camera.getW() > maxX) {
                 camera.setW(maxX);
