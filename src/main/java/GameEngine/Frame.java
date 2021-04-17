@@ -4,6 +4,7 @@ import GameEngine.Background.Background;
 import GameEngine.UI.UI;
 import GameEngine.World.World;
 import Viewer.Renderer;
+import javafx.scene.input.KeyEvent;
 
 public class Frame {
 
@@ -20,6 +21,13 @@ public class Frame {
     }
 
     public void init() {
+
+    }
+
+    public void keyIsPressed(KeyEvent key) {
+
+    }
+    public void keyIsReleased(KeyEvent key) {
 
     }
 

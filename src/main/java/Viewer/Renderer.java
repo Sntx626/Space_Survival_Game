@@ -1,33 +1,73 @@
 package Viewer;
 
 import GameEngine.Frame;
+import GameEngine.Frames.Game;
 import GameEngine.Frames.StartMenu;
+import GameEngine.World.Entity;
+import GameEngine.World.Entitys.Camera;
+import javafx.animation.AnimationTimer;
+import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
-public class Renderer implements Runnable{
+public class Renderer{
 
     Stage stage;
+    Canvas canvas;
+
 
     Frame frame;
 
+    int mouseX = 0, mouseY = 0;
+
     boolean continueRendering = true;
+
+    final int WIDTH = 640, HEIGHT = 480;
 
     int currentFramerate = 0;
 
     public Renderer(Stage stage) {
         this.stage = stage;
 
-        this.changeFrame(new StartMenu(this));
+        //this.changeFrame(new StartMenu(this));
+        this.changeFrame(new Game(this));
 
-        var scene = new Scene(new FlowPane(),640, 480);
+        //ADD CANVAS TO PANE
+        var root = new Group();
+        Canvas canvas = new Canvas(WIDTH, HEIGHT);
+        this.canvas = canvas;
+        root.getChildren().add(this.canvas);
+
+        var scene = new Scene(root,WIDTH, HEIGHT);
+        scene.addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
+            this.frame.keyIsPressed(key);
+        });
+        scene.addEventHandler(KeyEvent.KEY_RELEASED, (key) -> {
+            this.frame.keyIsReleased(key);
+        });
+        scene.addEventHandler(MouseEvent.MOUSE_MOVED, mouseEvent -> {
+            this.mouseX = (int)mouseEvent.getX();
+            this.mouseY = (int)mouseEvent.getY();
+        });
+
         this.stage.setScene(scene);
 
+        run();
+
         this.stage.show();
+
     }
 
     public Renderer changeFrame(Frame frame) {
@@ -44,26 +84,51 @@ public class Renderer implements Runnable{
         this.stage.getIcons().add(new Image("file:" + this.frame.getWindowTitle()));
     }
 
-    @Override
     public void run() {
         int framesInTheLastSecond = 0;
         long now;
         long timeOfLastCount = 0L;
-        while (continueRendering) {
-            // render background
+        final long startNanoTime = System.nanoTime();
+        new AnimationTimer(){
+            int framesInTheLastSecond = 0;
+            long now;
+            long timeOfLastCount = 0L;
+            public void handle(long currentNanoTime)
+            {
+                double t = (currentNanoTime - startNanoTime) / 1000000000.0;
 
-            // render game
+                //background
+                canvas.getGraphicsContext2D().setFill(Color.WHITE);
+                canvas.getGraphicsContext2D().fillRect(0, 0, WIDTH, HEIGHT);
 
-            // render ui
 
-            framesInTheLastSecond++;
-            now = System.currentTimeMillis();
-            if (now - (1000) > timeOfLastCount) {
-                this.currentFramerate = (int)((framesInTheLastSecond*1000)/(now-timeOfLastCount));
-                framesInTheLastSecond = 0;
-                timeOfLastCount = now;
+                //midleground
+                ArrayList<Entity> entities = frame.getWorld().getEntities();
+                Camera c = frame.getWorld().getCamera();
+                Collections.sort(entities);
+                for (int i = 0; i < entities.size(); i++) {
+                    Entity e = entities.get(i);
+                    if (Math.abs(c.getX() - e.getX()) <= (c.getW()/2) + e.getW() && Math.abs(c.getY() - e.getY()) <= e.getH() + (c.getH()/2)) {
+
+                        e.render(canvas.getGraphicsContext2D(), (int)c.getX(), (int)c.getY(), c.getW(), c.getH(), WIDTH, HEIGHT, mouseX, mouseY);
+                    }
+                }
+                System.out.println();
+
+                //foreground
+
+
+
+
+                framesInTheLastSecond++;
+                now = System.currentTimeMillis();
+                if (now - (1000) > timeOfLastCount) {
+                    currentFramerate = (int)((framesInTheLastSecond*1000)/(now-timeOfLastCount));
+                    framesInTheLastSecond = 0;
+                    timeOfLastCount = now;
+                }
+                stage.setTitle(String.format("%s | FPS: %s", frame.getWindowTitle(), currentFramerate));
             }
-            this.stage.setTitle(String.format("%s | FPS: %s", this.frame.getWindowTitle(), this.currentFramerate));
-        }
+        }.start();
     }
 }

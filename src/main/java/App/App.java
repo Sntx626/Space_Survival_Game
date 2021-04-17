@@ -16,7 +16,6 @@ public class App extends Application {
     @Override
     public void start(Stage stage) {
         Renderer renderer = new Renderer(stage);
-        renderer.run();
     }
 
     public static void main(String[] args) {
