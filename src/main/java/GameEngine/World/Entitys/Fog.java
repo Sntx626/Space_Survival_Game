@@ -3,10 +3,6 @@ package GameEngine.World.Entitys;
 import GameEngine.World.Entity;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Path;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Shape;
 
 import java.util.ArrayList;
 
@@ -21,7 +17,7 @@ public class Fog  extends Entity {
 
         ArrayList<Double> pathX = new ArrayList<Double>();
         ArrayList<Double> pathY = new ArrayList<Double>();
-        int circlePoints = 360;
+        int circlePoints = 1000;
         pathX.add(0.0);
         pathY.add((double)h/2.0);
         pathX.add(-(double)w/2.0);

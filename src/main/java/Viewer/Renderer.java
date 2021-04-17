@@ -129,7 +129,7 @@ public class Renderer{
 
                 for (Entity e : entities) {
                     if (Math.abs(c.getX() - e.getX()) <= (c.getW() / 2) + e.getW() && Math.abs(c.getY() - e.getY()) <= e.getH() + (c.getH() / 2)) {
-                        e.render(canvas.getGraphicsContext2D(), (int) c.getX(), (int) c.getY(), c.getW(), c.getH(), WIDTH, HEIGHT, mouseX, mouseY);
+                        e.render(canvas.getGraphicsContext2D(), (int) c.getX(), (int) c.getY(), c.getW(), c.getH(), WIDTH, HEIGHT-40, mouseX, mouseY);
                     }
                 }
 
