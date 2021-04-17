@@ -11,6 +11,8 @@ public class Entity implements Comparable<Entity>{
     double accX = 0, accY  = 0, velX = 0, velY = 0;
     int maxSpeed = 1;
 
+    int hp = -1; // hp > 0 -> is alive; hp == 0 -> dead; hp == -1 -> No hp/invulnerable
+
     public void addForce(double fX, double fY) {
         this.accY += fY;
         this.accX += fX;
