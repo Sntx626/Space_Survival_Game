@@ -13,6 +13,16 @@ public class Entity implements Comparable<Entity>{
 
     Image sprite;
 
+    public double getFriction() {
+        return friction;
+    }
+
+    public void setFriction(double friction) {
+        this.friction = friction;
+    }
+
+    double friction = 0.007;
+
     public Image getSprite() {
         return sprite;
     }
@@ -155,8 +165,8 @@ public class Entity implements Comparable<Entity>{
             fricX = this.velX * -1;
             fricY = this.velY * -1;
         }
-        fricX *= 0.007;
-        fricY *= 0.007;
+        fricX *= friction;
+        fricY *= friction;
         addForce(fricX, fricY);
 
         this.velX += this.accX;
