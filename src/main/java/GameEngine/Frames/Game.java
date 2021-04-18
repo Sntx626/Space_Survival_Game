@@ -18,12 +18,10 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
-import java.lang.reflect.Array;
-import java.time.Clock;
 import java.time.Instant;
 import java.util.ArrayList;
 
-public class Game extends Frame implements Runnable{
+public class Game extends Frame implements Runnable {
 
     Player p;
     Fog f;
@@ -37,6 +35,7 @@ public class Game extends Frame implements Runnable{
 
     double playerSpeed = 5;
     int maxSpeed = 10;
+    int currentFramerate = 0;
 
     public Game(Renderer renderer) {
         super(renderer);
@@ -60,7 +59,6 @@ public class Game extends Frame implements Runnable{
         f = new Fog(this);
         f.setH(2000);
         f.setW(2000);
-
 
 
         this.getWorld().addEntity(p);
@@ -87,7 +85,6 @@ public class Game extends Frame implements Runnable{
         }
     }
 
-
     @Override
     public void keyIsReleased(KeyEvent key) {
         if (key.getCode() == KeyCode.D) {
@@ -102,8 +99,8 @@ public class Game extends Frame implements Runnable{
         if (key.getCode() == KeyCode.S) {
             ps = false;
         }
-        if(key.getCode() == KeyCode.R){
-            if(this.getWorld().getPlayer().getMomRockets() > 0) {
+        if (key.getCode() == KeyCode.R) {
+            if (this.getWorld().getPlayer().getMomRockets() > 0) {
                 System.out.println("Rocked Fired");
                 Rocket rocket = new Rocket(this, this.getWorld().getPlayer());
                 double playerAngle = this.getWorld().getPlayer().getLastAngle();
@@ -111,8 +108,8 @@ public class Game extends Frame implements Runnable{
                 rocket.setFriction(0);
                 rocket.setZ_index(-1);
                 this.getWorld().addEntity(rocket);
-                this.getWorld().getPlayer().setMomRockets(this.getWorld().getPlayer().getMomRockets()-1);
-            }else{
+                this.getWorld().getPlayer().setMomRockets(this.getWorld().getPlayer().getMomRockets() - 1);
+            } else {
                 System.out.println("Not enough Rockets");
             }
         }
@@ -128,9 +125,9 @@ public class Game extends Frame implements Runnable{
 
     @Override
     public void mouseIsRELEASED(MouseEvent event) {
-        ArrayList<Entity> entTemp = (ArrayList<Entity>)this.getWorld().getEntities().clone();
+        ArrayList<Entity> entTemp = (ArrayList<Entity>) this.getWorld().getEntities().clone();
         for (Entity current : entTemp) {
-            if(current.getClass().equals(MainingLaser.class)){
+            if (current.getClass().equals(MainingLaser.class)) {
                 current.setDelete(true);
             }
         }
@@ -149,7 +146,6 @@ public class Game extends Frame implements Runnable{
         this.currentFramerate = currentFramerate;
     }
 
-    int currentFramerate = 0;
     @Override
     public void run() {
         try {
@@ -164,26 +160,26 @@ public class Game extends Frame implements Runnable{
             long actualRunDuration;
 
             while (true) {
-                if (timesRun <= Long.MAX_VALUE-1000) {
+                if (timesRun <= Long.MAX_VALUE - 1000) {
                     timesRun++;
                 } else {
                     timesRun = 0;
                     startTime = Instant.now().toEpochMilli();
                 }
 
-                double accX = 0,  accY = 0;
+                double accX = 0, accY = 0;
                 double responsive = 0.01;
                 if (pd) {
-                   accX += playerSpeed*responsive;
+                    accX += playerSpeed * responsive;
                 }
                 if (pa) {
-                    accX -= playerSpeed*responsive;
+                    accX -= playerSpeed * responsive;
                 }
                 if (pw) {
-                    accY -= playerSpeed*responsive;
+                    accY -= playerSpeed * responsive;
                 }
                 if (ps) {
-                    accY += playerSpeed*responsive;
+                    accY += playerSpeed * responsive;
                 }
                 this.p.addForce(accX, accY);
 
@@ -192,25 +188,25 @@ public class Game extends Frame implements Runnable{
                 this.getWorld().getCamera().setY(p.getY());
                 f.setX(p.getX());
                 f.setY(p.getY());
-                ArrayList<Entity> tempEnt = (ArrayList<Entity>)this.getWorld().getEntities().clone();
-                for (Entity e1: tempEnt) {
+                ArrayList<Entity> tempEnt = (ArrayList<Entity>) this.getWorld().getEntities().clone();
+                for (Entity e1 : tempEnt) {
                     if (e1.getClass() == Astroid.class && e1.getHp() <= 0) {
                         e1.setDelete(true);
                         //GenerateAstroidPiece
-                        if (e1.getW() < 64){
+                        if (e1.getW() < 64) {
                             AstroidPiece piece = new AstroidPiece(this, e1, new Vector(0, 0));
                             this.getWorld().addEntity(piece);
                         } else {
-                            for (int i = 0; i < (int)((Math.random() * 3 + 1)); i++) {
+                            for (int i = 0; i < (int) ((Math.random() * 3 + 1)); i++) {
                                 double angle = Math.random() * 360;
-                                int length = (int)(Math.random() * (e1.getW() - 32) + 32);
+                                int length = (int) (Math.random() * (e1.getW() - 32) + 32);
                                 double speed = Math.random() * 10 + 5;
                                 Astroid astroid = new Astroid(this);
                                 astroid.setH(length);
                                 astroid.setW(astroid.getH());
                                 Vector fA = new Vector(Math.sin(Math.toRadians(angle)) * speed, Math.cos(Math.toRadians(angle)) * speed);
-                                astroid.setX(e1.getX() + (fA.getX()/speed) * (e1.getW()/2));
-                                astroid.setY(e1.getY() + (fA.getY()/speed) * (e1.getW()/2));
+                                astroid.setX(e1.getX() + (fA.getX() / speed) * (e1.getW() / 2));
+                                astroid.setY(e1.getY() + (fA.getY() / speed) * (e1.getW() / 2));
                                 astroid.setImmuneTick(100);
                                 astroid.addForce(fA.getX(), fA.getY());
                                 this.getWorld().addEntity(astroid);
@@ -222,17 +218,16 @@ public class Game extends Frame implements Runnable{
 
 
                     } else if (e1.getClass() == Astroid.class || e1.getClass() == AstroidPiece.class || e1.getClass() == Rocket.class) {
-                        Vector toHealthBarTarget = new Vector(this.p.getX()-e1.getX(), this.p.getY()-e1.getY());
-                        if (toHealthBarTarget.Length() > this.maxSpawnX/2) {
+                        Vector toHealthBarTarget = new Vector(this.p.getX() - e1.getX(), this.p.getY() - e1.getY());
+                        if (toHealthBarTarget.Length() > this.maxSpawnX / 2) {
                             e1.setDelete(true);
                         }
                     }
                 }
 
-                tempEnt = (ArrayList<Entity>)this.getWorld().getEntities().clone();
-                for (Entity e1: tempEnt) {
-                    if (e1.isDelete())
-                    {
+                tempEnt = (ArrayList<Entity>) this.getWorld().getEntities().clone();
+                for (Entity e1 : tempEnt) {
+                    if (e1.isDelete()) {
                         e1.disableHealthBar();
                         this.getWorld().getEntities().remove(e1);
                     }
@@ -240,17 +235,17 @@ public class Game extends Frame implements Runnable{
 
 
                 int countAstroids = 0;
-                for (Entity e1: tempEnt) {
+                for (Entity e1 : tempEnt) {
                     if (e1.getClass() == Astroid.class) {
                         countAstroids++;
                     }
                 }
                 while (countAstroids < maxAstroids) {
-                    double minX = this.p.getX() - this.maxSpawnX/2;
-                    double minY = this.p.getY() - this.maxSpawnY/2;
-                    double maxX = this.p.getX() + this.maxSpawnX/2;
-                    double maxY = this.p.getY() + this.maxSpawnY/2;
-                    double fogSize = this.f.getW()/4;
+                    double minX = this.p.getX() - this.maxSpawnX / 2;
+                    double minY = this.p.getY() - this.maxSpawnY / 2;
+                    double maxX = this.p.getX() + this.maxSpawnX / 2;
+                    double maxY = this.p.getY() + this.maxSpawnY / 2;
+                    double fogSize = this.f.getW() / 4;
                     double x = 0;
                     double y = 0;
                     double r = 0;
@@ -258,16 +253,16 @@ public class Game extends Frame implements Runnable{
                     while (!found) {
                         x = Math.random() * (maxX - minX) + minX;
                         y = Math.random() * (maxY - minY) + minY;
-                        r = (int)(Math.random() * (300 - 100) + 100);
+                        r = (int) (Math.random() * (300 - 100) + 100);
                         Vector toHealthBarTarget = new Vector(this.p.getX() - x, this.p.getY() - y);
                         while (toHealthBarTarget.Length() < Math.max(fogSize, 800)) {
                             x = Math.random() * (maxX - minX) + minX;
                             y = Math.random() * (maxY - minY) + minY;
                             toHealthBarTarget = new Vector(this.p.getX() - x, this.p.getY() - y);
                         }
-                        tempEnt = (ArrayList<Entity>)this.getWorld().getEntities().clone();
+                        tempEnt = (ArrayList<Entity>) this.getWorld().getEntities().clone();
                         found = true;
-                        for (Entity e: tempEnt) {
+                        for (Entity e : tempEnt) {
                             if (e.getClass() == Astroid.class) {
                                 Vector toAstroid = new Vector(x - e.getX(), y - e.getY());
                                 if (toAstroid.Length() <= e.getH() + r + 20) {
@@ -280,19 +275,18 @@ public class Game extends Frame implements Runnable{
                     Astroid a3 = new Astroid(this);
                     a3.setX(x);
                     a3.setY(y);
-                    a3.setH((int)r);
-                    a3.setW((int)r);
+                    a3.setH((int) r);
+                    a3.setW((int) r);
                     this.getWorld().addEntity(a3);
 
                     countAstroids++;
                 }
 
 
+                tempEnt = (ArrayList<Entity>) this.getWorld().getEntities().clone();
 
-                tempEnt = (ArrayList<Entity>)this.getWorld().getEntities().clone();
-
-                for (Entity e1: tempEnt) {
-                    if (e1.isCanCollide()){
+                for (Entity e1 : tempEnt) {
+                    if (e1.isCanCollide()) {
                         ArrayList<Entity> isColliding = new ArrayList<Entity>();
                         ArrayList<Vector> collisionVector = new ArrayList<Vector>();
                         for (Entity e2 : tempEnt) {
@@ -301,7 +295,7 @@ public class Game extends Frame implements Runnable{
                                 if (e1.isColliding(e2)) {
                                     if (e1.getClass() == MainingLaser.class && e2 != p) {
                                         isColliding.add(e2);
-                                        collisionVector.add(((MainingLaser)e1).getCollidingPoint(e2.getX(), e2.getY(), e2.getW()));
+                                        collisionVector.add(((MainingLaser) e1).getCollidingPoint(e2.getX(), e2.getY(), e2.getW()));
                                     }
                                     e1.onColliding(e2);
                                 }
@@ -319,11 +313,11 @@ public class Game extends Frame implements Runnable{
                                     closestDist = dist;
                                 }
                             }
-                            MainingLaser laser = (MainingLaser)e1;
+                            MainingLaser laser = (MainingLaser) e1;
                             laser.setRenderLength(closestDist);
                             closest.damage(1);
                         } else if (e1.getClass() == MainingLaser.class) {
-                            MainingLaser laser = (MainingLaser)e1;
+                            MainingLaser laser = (MainingLaser) e1;
                             laser.setRenderLength(laser.getW());
                         }
                     }
@@ -331,22 +325,22 @@ public class Game extends Frame implements Runnable{
                 framesInTheLastSecond++;
                 now = System.currentTimeMillis();
                 if (now - (1000) > timeOfLastCount) {
-                    currentFramerate = (int)((framesInTheLastSecond*1000)/(now-timeOfLastCount));
+                    currentFramerate = (int) ((framesInTheLastSecond * 1000) / (now - timeOfLastCount));
                     framesInTheLastSecond = 0;
                     timeOfLastCount = now;
                 }
 
-                rocketCountLabel.setContent("Rockets: " + (int)this.p.getMomRockets() + "/" +(int)this.p.getMaxRockets());
+                rocketCountLabel.setContent("Rockets: " + (int) this.p.getMomRockets() + "/" + (int) this.p.getMaxRockets());
 
                 //execDuration = (long)Math.ceil((Instant.now().getNano()-nano)/1000000);
 
-                expectedRunDuration = timesRun*tickDuration;
-                actualRunDuration = Instant.now().toEpochMilli()-startTime;
+                expectedRunDuration = timesRun * tickDuration;
+                actualRunDuration = Instant.now().toEpochMilli() - startTime;
                 if (actualRunDuration < expectedRunDuration) {
                     Thread.sleep(expectedRunDuration - actualRunDuration);
-                } else if (actualRunDuration-expectedRunDuration > tickDuration*100) {
-                    long ticksSkipped = (actualRunDuration-expectedRunDuration)/tickDuration;
-                    System.out.println(String.format("Can't keep up! Did the system time change, or is the server overloaded? Running %sms behind, skipping %s tick(s)", (actualRunDuration-expectedRunDuration), ticksSkipped));
+                } else if (actualRunDuration - expectedRunDuration > tickDuration * 100) {
+                    long ticksSkipped = (actualRunDuration - expectedRunDuration) / tickDuration;
+                    System.out.println(String.format("Can't keep up! Did the system time change, or is the server overloaded? Running %sms behind, skipping %s tick(s)", (actualRunDuration - expectedRunDuration), ticksSkipped));
                     timesRun += ticksSkipped;
                 }
 

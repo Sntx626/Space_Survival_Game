@@ -6,8 +6,6 @@ import GameEngine.World.Entitys.AstroidPiece;
 import GameEngine.World.Vector;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 
 public class Rocket extends Entity {
 
@@ -48,20 +46,20 @@ public class Rocket extends Entity {
         gc.rotate(lastAngle);
         //gc.setFill(Color.GREENYELLOW);
         //gc.fillRect(pos.getX() - size.getX()/2 ,pos.getY() - size.getY()/2, size.getX(), size.getY());
-        gc.drawImage(this.getSprite(), -(size.getX())/2, -(size.getY())/2, size.getX()*2, size.getY()*2);
+        gc.drawImage(this.getSprite(), -(size.getX()) / 2, -(size.getY()) / 2, size.getX() * 2, size.getY() * 2);
         //gc.drawImage(this.getSprite(), pos.getX() - size.getX()/2, -pos.getY() - size.getY()/2, size.getX(), size.getY());
         gc.restore();
     }
 
     @Override
     public void onColliding(Entity e) {
-        if(!(e.equals(this.belongTo)) && !(e.getClass().equals(AstroidPiece.class))){
-            if(e.getClass().equals(Rocket.class)){
-                if(!(this.belongTo.equals(((Rocket)e).belongTo))){
+        if (!(e.equals(this.belongTo)) && !(e.getClass().equals(AstroidPiece.class))) {
+            if (e.getClass().equals(Rocket.class)) {
+                if (!(this.belongTo.equals(((Rocket) e).belongTo))) {
                     e.damage(damage);
                     this.setDelete(true);
                 }
-            }else {
+            } else {
                 e.damage(damage);
                 this.setDelete(true);
             }

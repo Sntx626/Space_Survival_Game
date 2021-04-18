@@ -6,6 +6,14 @@ import GameEngine.World.Entity;
 public class Camera extends Entity {
 
     Frame frame;
+    int minZoomX = 16 * 40;
+    int minZoomY = 9 * 40;
+    int maxZoomX = 16 * 80 * 3;
+    int maxZoomY = 9 * 80 * 3;
+
+    public Camera(Frame frame) {
+        super(frame);
+    }
 
     public int getMinZoomX() {
         return minZoomX;
@@ -37,14 +45,5 @@ public class Camera extends Entity {
 
     public void setMaxZoomY(int maxZoomY) {
         this.maxZoomY = maxZoomY;
-    }
-
-    int minZoomX = 16*40;
-    int minZoomY = 9*40;
-    int maxZoomX = 16*80*3;
-    int maxZoomY = 9*80*3;
-
-    public Camera(Frame frame) {
-        super(frame);
     }
 }

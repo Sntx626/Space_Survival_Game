@@ -8,14 +8,6 @@ import javafx.scene.text.Font;
 
 public class TextBox extends Component {
 
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
     String content = "";
 
     public TextBox(String content, int x, int y) {
@@ -24,8 +16,16 @@ public class TextBox extends Component {
         this.setY(y);
     }
 
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
     @Override
-    public void render(GraphicsContext gc, Camera camera, int w, int h){
+    public void render(GraphicsContext gc, Camera camera, int w, int h) {
         gc.setFill(Color.WHITE);
         gc.save();
         gc.setFont(new Font("Arial", 40));
