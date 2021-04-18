@@ -42,6 +42,8 @@ public class Game extends Frame implements Runnable{
         p.setX(500);
         p.setY(0);
 
+        this.getUi().addComponent(new TextBox("Dolor Sit Amet", 10, 40));
+
         f = new Fog(this);
 
         Astroid a = new Astroid(this);

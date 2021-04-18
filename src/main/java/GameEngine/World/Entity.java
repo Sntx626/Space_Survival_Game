@@ -3,12 +3,23 @@ package GameEngine.World;
 import GameEngine.Frame;
 import GameEngine.UI.Components.HealthBar;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 
 import java.util.ArrayList;
 
 public class Entity implements Comparable<Entity>{
 
     Frame frame;
+
+    Image sprite;
+
+    public Image getSprite() {
+        return sprite;
+    }
+
+    public void setSprite(Image sprite) {
+        this.sprite = sprite;
+    }
 
     public boolean isDelete() {
         return delete;

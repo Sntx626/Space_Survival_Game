@@ -4,6 +4,7 @@ import GameEngine.Frame;
 import GameEngine.World.Vector;
 import GameEngine.World.Entity;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
 public class Player extends Entity {
@@ -17,6 +18,7 @@ public class Player extends Entity {
         this.setZ_index(1);
         this.setH(64);
         this.setW(64);
+        this.setSprite(new Image("file:rsc/entity_data/player.png"));
         this.setCanCollide(true);
         this.setMaxHp(10);
         this.setHp(10);
@@ -43,7 +45,7 @@ public class Player extends Entity {
     @Override
     public void render(GraphicsContext gc, int cx, int cy, int cw, int ch, int w, int h, int mx, int my) {
         gc.save();
-        gc.setFill(Color.web("#4728d1"));
+        //gc.setFill(Color.web("#4728d1"));
         Vector pos = this.getViewPortCords(cx, cy, cw, ch, w, h);
         Vector size = this.getViewPortSize(cx, cy, cw, ch, w, h);
 
@@ -63,7 +65,8 @@ public class Player extends Entity {
         gc.translate(pos.getX(), pos.getY());
         gc.rotate(angle);
         //gc.fillPolygon(playerModelX, playerModelY, 3);
-        gc.fillRect(-size.getX()/2, -size.getY()/2, size.getX(), size.getY());
+        //gc.fillRect(-size.getX()/2, -size.getY()/2, size.getX(), size.getY());
+        gc.drawImage(this.getSprite(), -size.getX()/2, -size.getY()/2, size.getX(), size.getY());
         //gc.fillPolygon(playerModelX, playerModelY, 3);
         gc.restore();
         //gc.fillRect(tempX - (tempW/2), tempY - (tempH/2), tempW, tempH);
