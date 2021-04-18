@@ -142,13 +142,20 @@ public class Game extends Frame implements Runnable{
             int framesInTheLastSecond = 0;
             long now;
             long timeOfLastCount = 0L;
-            Clock clock = Clock.systemDefaultZone();
-            long execDuration;
+
+            long startTime = Instant.now().toEpochMilli();
+            long timesRun = 0;
+            long tickDuration = 5;
+            long expectedRunDuration;
+            long actualRunDuration;
 
             while (true) {
-
-                Instant instant = clock.instant();   // or Instant.now();
-                long nano = instant.getNano();
+                if (timesRun <= Long.MAX_VALUE-1000) {
+                    timesRun++;
+                } else {
+                    timesRun = 0;
+                    startTime = Instant.now().toEpochMilli();
+                }
 
                 double accX = 0,  accY = 0;
                 double responsive = 0.01;
@@ -298,12 +305,14 @@ public class Game extends Frame implements Runnable{
                     timeOfLastCount = now;
                 }
 
-                instant = clock.instant();   // or Instant.now();
-                execDuration = (instant.getNano()-nano)/1000000;
-                //System.out.println("Tick duration: " + execDuration);
-                if (execDuration == 0) {
-                    Thread.sleep(1);
+                //execDuration = (long)Math.ceil((Instant.now().getNano()-nano)/1000000);
+
+                expectedRunDuration = timesRun*tickDuration;
+                actualRunDuration = Instant.now().toEpochMilli()-startTime;
+                if (actualRunDuration < expectedRunDuration) {
+                    Thread.sleep(expectedRunDuration-actualRunDuration);
                 }
+
             }
         } catch (InterruptedException e) {
 
