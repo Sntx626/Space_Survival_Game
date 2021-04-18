@@ -10,6 +10,24 @@ import javafx.scene.paint.Color;
 public class Player extends Entity {
 
     Frame frame;
+    double maxRockets = 0;
+    double momRockets = 0;
+
+    public double getMaxRockets() {
+        return maxRockets;
+    }
+
+    public void setMaxRockets(double maxRockets) {
+        this.maxRockets = maxRockets;
+    }
+
+    public double getMomRockets() {
+        return momRockets;
+    }
+
+    public void setMomRockets(double momRockets) {
+        this.momRockets = momRockets;
+    }
 
     public double getLastAngle() {
         return lastAngle;
@@ -32,6 +50,8 @@ public class Player extends Entity {
         this.setMaxHp(10);
         this.setHp(10);
         this.enableHealthBar();
+        this.setMaxRockets(20);
+        this.setMomRockets(this.getMaxRockets());
     }
 
     @Override

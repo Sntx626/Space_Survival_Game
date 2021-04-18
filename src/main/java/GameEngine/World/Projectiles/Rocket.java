@@ -2,6 +2,7 @@ package GameEngine.World.Projectiles;
 
 import GameEngine.Frame;
 import GameEngine.World.Entity;
+import GameEngine.World.Entitys.AstroidPiece;
 import GameEngine.World.Vector;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -11,8 +12,7 @@ public class Rocket extends Entity {
 
     Frame frame;
     Entity belongTo;
-    boolean one = true;
-    double force;
+    int damage = 100;
 
     public Rocket(Frame frame, Entity belongTo) {
         super(frame);
@@ -22,6 +22,8 @@ public class Rocket extends Entity {
         this.setY(belongTo.getY());
         this.setH(64);
         this.setW(64);
+        this.setMaxSpeed(200);
+        this.setCanCollide(true);
     }
 
     @Override
@@ -34,5 +36,13 @@ public class Rocket extends Entity {
         gc.setFill(Color.GREENYELLOW);
         gc.fillRect(pos.getX() - size.getX()/2 ,pos.getY() - size.getY()/2, size.getX(), size.getY());
         gc.restore();
+    }
+
+    @Override
+    public void onColliding(Entity e) {
+        if(!(e.equals(this.belongTo)) && !(e.getClass().equals(AstroidPiece.class))){
+            e.setHp(e.getHp() - damage);
+            this.setDelete(true);
+        }
     }
 }

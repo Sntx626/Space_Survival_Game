@@ -94,13 +94,18 @@ public class Game extends Frame implements Runnable{
             ps = false;
         }
         if(key.getCode() == KeyCode.R){
-            System.out.println("Rocked Fired");
-            Rocket rocket = new Rocket(this, this.getWorld().getPlayer());
-            double playerAngle = this.getWorld().getPlayer().getLastAngle();
-            rocket.addForce(Math.sin(Math.toRadians(playerAngle))*5, -Math.cos(Math.toRadians(playerAngle))*5);
-            rocket.setFriction(0);
-            rocket.setZ_index(-1);
-            this.getWorld().addEntity(rocket);
+            if(this.getWorld().getPlayer().getMomRockets() > 0) {
+                System.out.println("Rocked Fired");
+                Rocket rocket = new Rocket(this, this.getWorld().getPlayer());
+                double playerAngle = this.getWorld().getPlayer().getLastAngle();
+                rocket.addForce(Math.sin(Math.toRadians(playerAngle)) * 5, -Math.cos(Math.toRadians(playerAngle)) * 5);
+                rocket.setFriction(0);
+                rocket.setZ_index(-1);
+                this.getWorld().addEntity(rocket);
+                this.getWorld().getPlayer().setMomRockets(this.getWorld().getPlayer().getMomRockets()-1);
+            }else{
+                System.out.println("Not enough Rockets");
+            }
         }
     }
 
