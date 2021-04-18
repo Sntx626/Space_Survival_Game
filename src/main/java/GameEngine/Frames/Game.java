@@ -107,7 +107,7 @@ public class Game extends Frame implements Runnable{
                 System.out.println("Rocked Fired");
                 Rocket rocket = new Rocket(this, this.getWorld().getPlayer());
                 double playerAngle = this.getWorld().getPlayer().getLastAngle();
-                rocket.addForce(Math.sin(Math.toRadians(playerAngle)) * 5, -Math.cos(Math.toRadians(playerAngle)) * 5);
+                rocket.addForce(Math.sin(Math.toRadians(playerAngle)) * 10, -Math.cos(Math.toRadians(playerAngle)) * 10);
                 rocket.setFriction(0);
                 rocket.setZ_index(-1);
                 this.getWorld().addEntity(rocket);
@@ -319,7 +319,7 @@ public class Game extends Frame implements Runnable{
                     timeOfLastCount = now;
                 }
 
-                rocketCountLabel.setContent("Rocktes: " + (int)this.p.getMomRockets());
+                rocketCountLabel.setContent("Rocktes: " + (int)this.p.getMomRockets() + "/" +(int)this.p.getMaxRockets());
 
                 //execDuration = (long)Math.ceil((Instant.now().getNano()-nano)/1000000);
 

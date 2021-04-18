@@ -20,8 +20,8 @@ public class Rocket extends Entity {
         this.belongTo = belongTo;
         this.setX(belongTo.getX());
         this.setY(belongTo.getY());
-        this.setH(64);
-        this.setW(64);
+        this.setH(32);
+        this.setW(32);
         this.setMaxSpeed(200);
         this.setCanCollide(true);
     }
@@ -41,8 +41,15 @@ public class Rocket extends Entity {
     @Override
     public void onColliding(Entity e) {
         if(!(e.equals(this.belongTo)) && !(e.getClass().equals(AstroidPiece.class))){
-            e.setHp(e.getHp() - damage);
-            this.setDelete(true);
+            if(e.getClass().equals(Rocket.class)){
+                if(!(this.belongTo.equals(((Rocket)e).belongTo))){
+                    e.setHp(e.getHp() - damage);
+                    this.setDelete(true);
+                }
+            }else {
+                e.setHp(e.getHp() - damage);
+                this.setDelete(true);
+            }
         }
     }
 }
