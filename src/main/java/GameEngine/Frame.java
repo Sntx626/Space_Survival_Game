@@ -37,7 +37,7 @@ public class Frame {
 
     }
 
-    public void mouseIsRELEASED(MouseEvent event){
+    public void mouseIsRELEASED(MouseEvent event) {
 
     }
 
@@ -73,22 +73,22 @@ public class Frame {
         this.background = background;
     }
 
+    public String getWindowIcon() {
+        return this.windowIcon;
+    }
+
     public void setWindowIcon(String windowIcon) {
         this.windowIcon = windowIcon;
         this.renderer.updateWindowIcon();
     }
 
-    public String getWindowIcon() {
-        return this.windowIcon;
+    public String getWindowTitle() {
+        return this.windowTitle;
     }
 
     public void setWindowTitle(String windowTitle) {
         this.windowTitle = windowTitle;
         this.renderer.updateWindowTitle();
-    }
-
-    public String getWindowTitle() {
-        return this.windowTitle;
     }
 
 }
