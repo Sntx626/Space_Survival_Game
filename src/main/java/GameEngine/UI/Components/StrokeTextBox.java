@@ -15,7 +15,7 @@ public class StrokeTextBox extends Component {
     }
 
     @Override
-    public void render(GraphicsContext gc, Camera camera){
+    public void render(GraphicsContext gc, Camera camera, int w, int h){
         gc.strokeText(content, this.getX(), this.getY());
     }
 }

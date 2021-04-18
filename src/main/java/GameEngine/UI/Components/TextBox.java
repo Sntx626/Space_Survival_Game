@@ -4,8 +4,17 @@ import GameEngine.UI.Component;
 import GameEngine.World.Entitys.Camera;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 
 public class TextBox extends Component {
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
 
     String content = "";
 
@@ -16,7 +25,12 @@ public class TextBox extends Component {
     }
 
     @Override
-    public void render(GraphicsContext gc, Camera camera){
-        gc.setFill(Color.WHITE); gc.fillText(content, this.getX(), this.getY());
+    public void render(GraphicsContext gc, Camera camera, int w, int h){
+        gc.setFill(Color.WHITE);
+        gc.save();
+        gc.setFont(new Font("Arial", 40));
+        gc.fillText(content, this.getX(), this.getY());
+
+        gc.restore();
     }
 }

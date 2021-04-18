@@ -27,10 +27,16 @@ public class Game extends Frame implements Runnable{
 
     Player p;
     Fog f;
+
     boolean pw = false, ps = false, pa = false, pd = false;
+
+    TextBox rocketCountLabel;
 
     int maxSpawnX = 0, maxSpawnY = 0;
     int maxAstroids = 100;
+
+    double playerSpeed = 5;
+    int maxSpeed = 10;
 
     public Game(Renderer renderer) {
         super(renderer);
@@ -41,16 +47,19 @@ public class Game extends Frame implements Runnable{
 
         this.getWorld().setCanZoom(true);
 
-        this.getUi().addComponent(new TextBox("Lorem Ipsum", 10, 20));
-        this.getUi().addComponent(new TextBox("Dolor Sit Amet", 10, 40));
+
+        rocketCountLabel = new TextBox("Rockets: 0", 10, 40);
+        this.getUi().addComponent(rocketCountLabel);
 
         p = new Player(this);
         p.setX(500);
         p.setY(0);
+        p.setMaxSpeed(maxSpeed);
 
-        this.getUi().addComponent(new TextBox("Dolor Sit Amet", 10, 40));
 
         f = new Fog(this);
+        f.setH(400);
+        f.setW(400);
 
 
 
@@ -94,13 +103,18 @@ public class Game extends Frame implements Runnable{
             ps = false;
         }
         if(key.getCode() == KeyCode.R){
-            System.out.println("Rocked Fired");
-            Rocket rocket = new Rocket(this, this.getWorld().getPlayer());
-            double playerAngle = this.getWorld().getPlayer().getLastAngle();
-            rocket.addForce(Math.sin(Math.toRadians(playerAngle))*5, -Math.cos(Math.toRadians(playerAngle))*5);
-            rocket.setFriction(0);
-            rocket.setZ_index(-1);
-            this.getWorld().addEntity(rocket);
+            if(this.getWorld().getPlayer().getMomRockets() > 0) {
+                System.out.println("Rocked Fired");
+                Rocket rocket = new Rocket(this, this.getWorld().getPlayer());
+                double playerAngle = this.getWorld().getPlayer().getLastAngle();
+                rocket.addForce(Math.sin(Math.toRadians(playerAngle)) * 10, -Math.cos(Math.toRadians(playerAngle)) * 10);
+                rocket.setFriction(0);
+                rocket.setZ_index(-1);
+                this.getWorld().addEntity(rocket);
+                this.getWorld().getPlayer().setMomRockets(this.getWorld().getPlayer().getMomRockets()-1);
+            }else{
+                System.out.println("Not enough Rockets");
+            }
         }
     }
 
@@ -160,16 +174,16 @@ public class Game extends Frame implements Runnable{
                 double accX = 0,  accY = 0;
                 double responsive = 0.01;
                 if (pd) {
-                   accX += 1*responsive;
+                   accX += playerSpeed*responsive;
                 }
                 if (pa) {
-                    accX -= 1*responsive;
+                    accX -= playerSpeed*responsive;
                 }
                 if (pw) {
-                    accY -= 1*responsive;
+                    accY -= playerSpeed*responsive;
                 }
                 if (ps) {
-                    accY += 1*responsive;
+                    accY += playerSpeed*responsive;
                 }
                 this.p.addForce(accX, accY);
 
@@ -189,7 +203,7 @@ public class Game extends Frame implements Runnable{
                             AstroidPiece piece = new AstroidPiece(this, e1, new Vector(Math.sin(Math.toRadians(angle)) * length, Math.cos(Math.toRadians(angle)) * length));
                             this.getWorld().addEntity(piece);
                         }
-                    } else if (e1.getClass() == Astroid.class || e1.getClass() == AstroidPiece.class) {
+                    } else if (e1.getClass() == Astroid.class || e1.getClass() == AstroidPiece.class || e1.getClass() == Rocket.class) {
 
                         Vector toHealthBarTarget = new Vector(this.p.getX()-e1.getX(), this.p.getY()-e1.getY());
                         if (toHealthBarTarget.Length() > this.maxSpawnX/2) {
@@ -304,6 +318,8 @@ public class Game extends Frame implements Runnable{
                     framesInTheLastSecond = 0;
                     timeOfLastCount = now;
                 }
+
+                rocketCountLabel.setContent("Rocktes: " + (int)this.p.getMomRockets() + "/" +(int)this.p.getMaxRockets());
 
                 //execDuration = (long)Math.ceil((Instant.now().getNano()-nano)/1000000);
 
