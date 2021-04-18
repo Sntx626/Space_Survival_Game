@@ -28,11 +28,11 @@ public class Rocket extends Entity {
     public void render(GraphicsContext gc, int cx, int cy, int cw, int ch, int w, int h, int mx, int my) {
 
         Vector pos = this.getViewPortCords(cx, cy, cw, ch, w, h);
-
+        Vector size = this.getViewPortSize(cx, cy, cw, ch, w, h);
 
         gc.save();
         gc.setFill(Color.GREENYELLOW);
-        gc.fillRect(pos.getX() ,pos.getY(),this.getW(),this.getH());
+        gc.fillRect(pos.getX() - size.getX()/2 ,pos.getY() - size.getY()/2, size.getX(), size.getY());
         gc.restore();
     }
 }
