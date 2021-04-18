@@ -200,7 +200,7 @@ public class Game extends Frame implements Runnable{
                         if (e1.getW() < 64){
 
                         } else {
-                            for (int i = 0; i < (int)((Math.random() * 3 + 1)); i++) {
+                            for (int i = 0; i < (int)((Math.random() * 3 + 2)); i++) {
                                 double angle = Math.random() * 360;
                                 int length = (int)(Math.random() * (e1.getW() - 32) + 32);
                                 double speed = Math.random() * 10 + 5;
@@ -210,7 +210,7 @@ public class Game extends Frame implements Runnable{
                                 Vector fA = new Vector(Math.sin(Math.toRadians(angle)) * speed, Math.cos(Math.toRadians(angle)) * speed);
                                 astroid.setX(e1.getX());
                                 astroid.setY(e1.getY());
-                                astroid.setImmune(100);
+                                astroid.setImmuneTick(1000);
                                 astroid.addForce(fA.getX(), fA.getY());
                                 this.getWorld().addEntity(astroid);
                                 //AstroidPiece piece = new AstroidPiece(this, e1, new Vector(Math.sin(Math.toRadians(angle)) * length, Math.cos(Math.toRadians(angle)) * length));
@@ -221,7 +221,6 @@ public class Game extends Frame implements Runnable{
 
 
                     } else if (e1.getClass() == Astroid.class || e1.getClass() == AstroidPiece.class || e1.getClass() == Rocket.class) {
-
                         Vector toHealthBarTarget = new Vector(this.p.getX()-e1.getX(), this.p.getY()-e1.getY());
                         if (toHealthBarTarget.Length() > this.maxSpawnX/2) {
                             e1.setDelete(true);
@@ -321,7 +320,7 @@ public class Game extends Frame implements Runnable{
                             }
                             MainingLaser laser = (MainingLaser)e1;
                             laser.setRenderLength(closestDist);
-                            closest.setHp(closest.getHp() - 1);
+                            closest.damage(1);
                         } else if (e1.getClass() == MainingLaser.class) {
                             MainingLaser laser = (MainingLaser)e1;
                             laser.setRenderLength(laser.getW());
@@ -336,7 +335,7 @@ public class Game extends Frame implements Runnable{
                     timeOfLastCount = now;
                 }
 
-                rocketCountLabel.setContent("Rocktes: " + (int)this.p.getMomRockets() + "/" +(int)this.p.getMaxRockets());
+                rocketCountLabel.setContent("Rockets: " + (int)this.p.getMomRockets() + "/" +(int)this.p.getMaxRockets());
 
                 //execDuration = (long)Math.ceil((Instant.now().getNano()-nano)/1000000);
 

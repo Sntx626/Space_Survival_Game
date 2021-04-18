@@ -31,7 +31,7 @@ public class Astroid extends Entity {
         this.enableHealthBar();
     }
 
-    public void setImmune(int delay) {
+    public void setImmuneTick(int delay) {
         this.setImmune(true);
         this.immuneTick = delay;
     }

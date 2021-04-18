@@ -156,7 +156,9 @@ public class Entity implements Comparable<Entity>{
     }
 
     public void damage(int amount) {
+        System.out.println("Got Damage");
         if (!this.isImmune) {
+            System.out.println("Hit Damage");
             this.setHp(this.getHp()-amount);
         }
     }

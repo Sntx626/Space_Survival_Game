@@ -44,11 +44,11 @@ public class Rocket extends Entity {
         if(!(e.equals(this.belongTo)) && !(e.getClass().equals(AstroidPiece.class))){
             if(e.getClass().equals(Rocket.class)){
                 if(!(this.belongTo.equals(((Rocket)e).belongTo))){
-                    e.setHp(e.getHp() - damage);
+                    e.damage(damage);
                     this.setDelete(true);
                 }
             }else {
-                e.setHp(e.getHp() - damage);
+                e.damage(damage);
                 this.setDelete(true);
             }
         }
