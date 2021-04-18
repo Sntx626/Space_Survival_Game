@@ -33,6 +33,8 @@ public class Player extends Entity {
 
             this.setHp(this.getHp()-1);
             e.setHp(e.getHp()-1);
+        } else if (e.getClass() == AstroidPiece.class) {
+            e.setDelete(true);
         }
     }
 
@@ -41,7 +43,7 @@ public class Player extends Entity {
     @Override
     public void render(GraphicsContext gc, int cx, int cy, int cw, int ch, int w, int h, int mx, int my) {
         gc.save();
-        gc.setFill(Color.web("#283ED1"));
+        gc.setFill(Color.web("#4728d1"));
         Vector pos = this.getViewPortCords(cx, cy, cw, ch, w, h);
         Vector size = this.getViewPortSize(cx, cy, cw, ch, w, h);
 

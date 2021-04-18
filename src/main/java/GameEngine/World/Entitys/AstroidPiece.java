@@ -23,7 +23,7 @@ public class AstroidPiece extends Entity {
     @Override
     public void render(GraphicsContext gc, int cx, int cy, int cw, int ch, int w, int h, int mx, int my) {
         gc.save();
-        gc.setFill(Color.web("#B2535C"));
+        gc.setFill(Color.web("#eb6a76"));
         int tempX = (int)((cw / 2) + (this.getX()-cx));
         int tempY = (int)((ch / 2) + (this.getY()-cy));
 
