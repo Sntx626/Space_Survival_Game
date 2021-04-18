@@ -206,7 +206,7 @@ public class Entity implements Comparable<Entity>{
         for (Vector v : this.getCollisions()) {
             double length = v.Length();
             if (length > -0.0001 && length < 0.0001) {
-                length = 0.0001;
+                length = 0.1;
             }
             this.velX *= (Math.abs((v.getX()/length)+(1+Math.random()/10))*-1);
             this.velY *= (Math.abs((v.getY()/length)+(1+Math.random()/10))*-1);
