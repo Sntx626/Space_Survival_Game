@@ -17,8 +17,8 @@ public class Fog  extends Entity {
 
     public Fog(Frame frame) {
         super(frame);
-        this.setW(1080);
-        this.setH(1080);
+        this.setW(1200);
+        this.setH(1200);
     }
 
     @Override
@@ -45,8 +45,8 @@ public class Fog  extends Entity {
         pathX.add(0.0);
         pathY.add((double)h/2.0);
         for (double i = 0; i <= 360; i += 360/circlePoints) {
-            pathX.add(Math.sin(Math.toRadians(i)) * ((double)this.getW()*factorX/2.0));
-            pathY.add(Math.cos(Math.toRadians(i)) * ((double)this.getH()*factorY/2.0));
+            pathX.add(Math.sin(Math.toRadians(i)) * ((double)(this.getW()/2.0)*factorX));
+            pathY.add(Math.cos(Math.toRadians(i)) * ((double)(this.getH()/2.0)*factorY));
         }
 
         double[] modelX = new double[pathX.size()];

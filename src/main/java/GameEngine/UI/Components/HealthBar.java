@@ -28,13 +28,13 @@ public class HealthBar extends Component {
         double fogSize = -1.0;
         for (Entity e : entities) {
             if (e.getClass() == Fog.class) {
-                fogSize = ((Fog) e).getDiameter();
+                fogSize = ((Fog) e).getW()/4;
                 break;
             }
         }
 
         Vector toHealthBarTarget = new Vector(camera.getX()-this.entity.getX(), camera.getY()-this.entity.getY());
-
+        System.out.println(toHealthBarTarget.Length() + " " + fogSize);
         if (toHealthBarTarget.Length() <= fogSize) {
             gc.save();
             gc.setLineWidth(this.healthBarHeight);
