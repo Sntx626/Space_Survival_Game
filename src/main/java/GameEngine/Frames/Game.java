@@ -197,12 +197,19 @@ public class Game extends Frame implements Runnable{
                     if (e1.getClass() == Astroid.class && e1.getHp() <= 0) {
                         e1.setDelete(true);
                         //GenerateAstroidPiece
-                        for (int i = 0; i < 5; i++) {
-                            double angle = Math.random() * 360;
-                            double length = Math.random() * 3;
-                            AstroidPiece piece = new AstroidPiece(this, e1, new Vector(Math.sin(Math.toRadians(angle)) * length, Math.cos(Math.toRadians(angle)) * length));
-                            this.getWorld().addEntity(piece);
+                        if (e1.getW() < 64){
+
+                        } else {
+                            for (int i = 0; i < (int)(Math.random() * 3); i++) {
+                                double angle = Math.random() * 360;
+                                double length = Math.random() * 3;
+                                AstroidPiece piece = new AstroidPiece(this, e1, new Vector(Math.sin(Math.toRadians(angle)) * length, Math.cos(Math.toRadians(angle)) * length));
+
+                                //this.getWorld().addEntity(piece);
+                            }
                         }
+
+
                     } else if (e1.getClass() == Astroid.class || e1.getClass() == AstroidPiece.class || e1.getClass() == Rocket.class) {
 
                         Vector toHealthBarTarget = new Vector(this.p.getX()-e1.getX(), this.p.getY()-e1.getY());
@@ -243,7 +250,7 @@ public class Game extends Frame implements Runnable{
                         y = Math.random() * (maxY - minY) + minY;
                         r = (int)(Math.random() * (300 - 100) + 100);
                         Vector toHealthBarTarget = new Vector(this.p.getX() - x, this.p.getY() - y);
-                        while (toHealthBarTarget.Length() < fogSize) {
+                        while (toHealthBarTarget.Length() < Math.max(fogSize, 800)) {
                             x = Math.random() * (maxX - minX) + minX;
                             y = Math.random() * (maxY - minY) + minY;
                             toHealthBarTarget = new Vector(this.p.getX() - x, this.p.getY() - y);

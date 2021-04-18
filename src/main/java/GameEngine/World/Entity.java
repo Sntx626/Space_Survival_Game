@@ -13,6 +13,17 @@ public class Entity implements Comparable<Entity>{
 
     Image sprite;
 
+    public boolean isHasPushback() {
+        return hasPushback;
+    }
+
+    public void setHasPushback(boolean hasPushback) {
+        this.hasPushback = hasPushback;
+    }
+
+    boolean hasPushback = true;
+
+
     public double getFriction() {
         return friction;
     }
@@ -199,7 +210,9 @@ public class Entity implements Comparable<Entity>{
     }
 
     public void onColliding(Entity e) {
+        if (isHasPushback()) {
 
+        }
     }
 
     public boolean isColliding(Entity e) {

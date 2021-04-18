@@ -30,6 +30,7 @@ public class MainingLaser extends Entity {
         this.belongTo = belongTo;
         this.setW(100);
         this.setCanCollide(true);
+        this.setHasPushback(false);
     }
 
     @Override

@@ -24,6 +24,7 @@ public class Rocket extends Entity {
         this.setW(32);
         this.setMaxSpeed(200);
         this.setCanCollide(true);
+        this.setHasPushback(false);
     }
 
     @Override

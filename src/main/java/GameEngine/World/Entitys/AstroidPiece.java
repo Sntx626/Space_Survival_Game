@@ -9,6 +9,7 @@ import javafx.scene.paint.Color;
 public class AstroidPiece extends Entity {
 
 
+
     public AstroidPiece(Frame frame, Entity astroid, Vector initForce) {
         super(frame);
         this.setCanCollide(true);
@@ -19,6 +20,7 @@ public class AstroidPiece extends Entity {
         this.setZ_index(-1);
         this.setH(this.getW());
         this.addForce(initForce.getX(), initForce.getY());
+        this.setHasPushback(false);
     }
 
     @Override

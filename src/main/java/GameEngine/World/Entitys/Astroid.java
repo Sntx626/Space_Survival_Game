@@ -15,7 +15,7 @@ public class Astroid extends Entity {
     public Astroid(Frame frame) {
         super(frame);
         this.setZ_index(-1);
-        this.setH((int)(Math.random() * (300 - 100) + 100));
+        this.setH((int)(Math.random() * (300 - 32) + 32));
         this.setW(this.getH());
         this.setRotation(Math.random() * 360);
         //System.out.println("Loading Image");
