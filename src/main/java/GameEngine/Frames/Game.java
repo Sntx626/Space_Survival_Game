@@ -37,7 +37,7 @@ public class Game extends Frame implements Runnable{
         this.getUi().addComponent(new TextBox("Dolor Sit Amet", 10, 40));
 
         p = new Player(this);
-        p.setX(0);
+        p.setX(200);
         p.setY(0);
 
         f = new Fog(this);
@@ -45,8 +45,20 @@ public class Game extends Frame implements Runnable{
         Astroid a = new Astroid(this);
         a.setX(-300);
         a.setY(-250);
+        Astroid a2 = new Astroid(this);
+        a2.setX(0);
+        a2.setY(0);
+        Astroid a3 = new Astroid(this);
+        a3.setX(-200);
+        a3.setY(0);
+        Astroid a4 = new Astroid(this);
+        a4.setX(-300);
+        a4.setY(0);
 
         this.getWorld().addEntity(a);
+        this.getWorld().addEntity(a2);
+        this.getWorld().addEntity(a3);
+        this.getWorld().addEntity(a4);
         this.getWorld().addEntity(p);
         this.getWorld().addEntity(f);
         new Thread(this).start();
@@ -142,23 +154,47 @@ public class Game extends Frame implements Runnable{
                 this.getWorld().getCamera().setY(p.getY());
                 f.setX(p.getX());
                 f.setY(p.getY());
-
-
                 ArrayList<Entity> tempEnt = (ArrayList<Entity>)this.getWorld().getEntities().clone();
                 for (Entity e1: tempEnt) {
-                    if (e1.isDelete()) this.getWorld().getEntities().remove(e1);
+                    if (e1.getClass() == Astroid.class && e1.getHp() <= 0) e1.setDelete(true);
+                }
+
+                tempEnt = (ArrayList<Entity>)this.getWorld().getEntities().clone();
+                for (Entity e1: tempEnt) {
+                    if (e1.isDelete())
+                    {
+                        e1.disableHealthBar();
+                        this.getWorld().getEntities().remove(e1);
+                    }
                 }
 
                 tempEnt = (ArrayList<Entity>)this.getWorld().getEntities().clone();
 
                 for (Entity e1: tempEnt) {
                     if (e1.isCanCollide()){
+                        ArrayList<Entity> isColliding = new ArrayList<Entity>();
                         for (Entity e2 : tempEnt) {
                             if (e1 != e2 && e2.isCanCollide()) {
                                 if (e1.isColliding(e2)) {
+                                    if (e1.getClass() == MainingLaser.class && e2 != p) {
+                                        isColliding.add(e2);
+                                    }
                                     e1.onColliding(e2);
                                 }
                             }
+                        }
+                        if (e1.getClass() == MainingLaser.class && isColliding.size() > 0) {
+                            Entity closest = isColliding.get(0);
+                            double closestDist = Math.sqrt(Math.pow(closest.getX() - p.getX(), 2) + Math.pow(closest.getY() - p.getY(), 2));
+
+                            for (int i = 1; i < isColliding.size(); i++) {
+                                double dist = Math.sqrt(Math.pow(isColliding.get(i).getX() - p.getX(), 2) + Math.pow(isColliding.get(i).getY() - p.getY(), 2));
+                                if (closestDist > dist) {
+                                    closest = isColliding.get(i);
+                                    closestDist = dist;
+                                }
+                            }
+                            closest.setHp(closest.getHp() - 1);
                         }
                     }
                 }

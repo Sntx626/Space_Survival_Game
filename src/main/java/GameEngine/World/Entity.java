@@ -49,6 +49,10 @@ public class Entity implements Comparable<Entity>{
         this.hitbox = hitbox;
     }
 
+    public HITBOX getHitbox() {
+        return hitbox;
+    }
+
     HITBOX hitbox = HITBOX.circle;
 
     private double x, y;

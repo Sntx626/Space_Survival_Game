@@ -12,8 +12,8 @@ public class Astroid extends Entity {
     public Astroid(Frame frame) {
         super(frame);
         this.setZ_index(-1);
-        this.setH(100);
-        this.setW(100);
+        this.setH(50);
+        this.setW(50);
         this.setCanCollide(true);
         this.setMaxHp(100);
         this.setHp(100);

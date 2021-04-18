@@ -34,7 +34,6 @@ public class HealthBar extends Component {
         }
 
         Vector toHealthBarTarget = new Vector(camera.getX()-this.entity.getX(), camera.getY()-this.entity.getY());
-        System.out.println(toHealthBarTarget.Length() + " " + fogSize);
         if (toHealthBarTarget.Length() <= fogSize) {
             gc.save();
             gc.setLineWidth(this.healthBarHeight);
