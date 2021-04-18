@@ -16,7 +16,7 @@ public class TextBox extends Component {
     }
 
     @Override
-    public void render(GraphicsContext gc, Camera camera){
+    public void render(GraphicsContext gc, Camera camera, int w, int h){
         gc.setFill(Color.WHITE); gc.fillText(content, this.getX(), this.getY());
     }
 }
