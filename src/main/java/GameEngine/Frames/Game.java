@@ -58,8 +58,8 @@ public class Game extends Frame implements Runnable{
 
 
         f = new Fog(this);
-        f.setH(400);
-        f.setW(400);
+        f.setH(2000);
+        f.setW(2000);
 
 
 
@@ -200,10 +200,20 @@ public class Game extends Frame implements Runnable{
                         if (e1.getW() < 64){
 
                         } else {
-                            for (int i = 0; i < (int)(Math.random() * 3); i++) {
+                            for (int i = 0; i < (int)((Math.random() * 3 + 1)); i++) {
                                 double angle = Math.random() * 360;
-                                double length = Math.random() * 3;
-                                AstroidPiece piece = new AstroidPiece(this, e1, new Vector(Math.sin(Math.toRadians(angle)) * length, Math.cos(Math.toRadians(angle)) * length));
+                                int length = (int)(Math.random() * (e1.getW() - 32) + 32);
+                                double speed = Math.random() * 10 + 5;
+                                Astroid astroid = new Astroid(this);
+                                astroid.setH(length);
+                                astroid.setW(astroid.getH());
+                                Vector fA = new Vector(Math.sin(Math.toRadians(angle)) * speed, Math.cos(Math.toRadians(angle)) * speed);
+                                astroid.setX(e1.getX());
+                                astroid.setY(e1.getY());
+                                astroid.setImmune(100);
+                                astroid.addForce(fA.getX(), fA.getY());
+                                this.getWorld().addEntity(astroid);
+                                //AstroidPiece piece = new AstroidPiece(this, e1, new Vector(Math.sin(Math.toRadians(angle)) * length, Math.cos(Math.toRadians(angle)) * length));
 
                                 //this.getWorld().addEntity(piece);
                             }

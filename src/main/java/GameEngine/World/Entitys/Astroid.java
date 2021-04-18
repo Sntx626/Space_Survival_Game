@@ -12,6 +12,7 @@ import javafx.scene.paint.Color;
 public class Astroid extends Entity {
 
     Frame frame;
+    int immuneTick = -1;
 
     public Astroid(Frame frame) {
         super(frame);
@@ -28,6 +29,21 @@ public class Astroid extends Entity {
         this.setMaxHp(100);
         this.setHp(100);
         this.enableHealthBar();
+    }
+
+    public void setImmune(int delay) {
+        this.immuneTick = delay;
+    }
+
+    @Override
+    public void move(){
+        super.move();
+        if (immuneTick > 0) {
+            immuneTick--;
+        } else if (immuneTick == 0) {
+            this.setCanCollide(true);
+            immuneTick--;
+        }
     }
 
     @Override
