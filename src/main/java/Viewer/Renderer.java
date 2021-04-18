@@ -50,6 +50,8 @@ public class Renderer{
 
     int currentFramerate = 0;
 
+
+
     public Renderer(Stage stage) {
         this.stage = stage;
 
@@ -129,9 +131,6 @@ public class Renderer{
     }
 
     public void run() {
-        int framesInTheLastSecond = 0;
-        long now;
-        long timeOfLastCount = 0L;
         final long startNanoTime = System.nanoTime();
         new AnimationTimer(){
             int framesInTheLastSecond = 0;
@@ -174,7 +173,11 @@ public class Renderer{
                     framesInTheLastSecond = 0;
                     timeOfLastCount = now;
                 }
-                stage.setTitle(String.format("%s | FPS: %s", frame.getWindowTitle(), currentFramerate));
+                if (frame.getClass() == Game.class) {
+                    stage.setTitle(String.format("%s | FPS: %s | Tick: %s", frame.getWindowTitle(), currentFramerate, ((Game)frame).getCurrentFramerate()));
+                } else {
+                    stage.setTitle(String.format("%s | FPS: %sY", frame.getWindowTitle(), currentFramerate));
+                }
             }
         }.start();
     }
