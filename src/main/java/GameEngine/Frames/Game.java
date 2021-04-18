@@ -194,7 +194,12 @@ public class Game extends Frame implements Runnable{
                                     closestDist = dist;
                                 }
                             }
+                            MainingLaser laser = (MainingLaser)e1;
+                            laser.setRenderLength(closestDist);
                             closest.setHp(closest.getHp() - 1);
+                        } else if (e1.getClass() == MainingLaser.class) {
+                            MainingLaser laser = (MainingLaser)e1;
+                            laser.setRenderLength(laser.getW());
                         }
                     }
                 }

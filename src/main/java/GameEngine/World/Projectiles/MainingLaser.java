@@ -15,6 +15,15 @@ public class MainingLaser extends Entity {
     Entity belongTo;
     double lastAngle = 0;
 
+    public double getRenderLength() {
+        return renderLength;
+    }
+
+    public void setRenderLength(double renderLength) {
+        this.renderLength = renderLength;
+    }
+
+    double renderLength = this.getW();
 
     public MainingLaser(Frame frame, Entity belongTo) {
         super(frame);
@@ -45,7 +54,7 @@ public class MainingLaser extends Entity {
         gc.setLineWidth(factorX * 10);
         gc.translate(playerCord.getX(), playerCord.getY());
         gc.rotate(lastAngle);
-        gc.strokeLine(0, 0, 0, -this.getW() * factorX);
+        gc.strokeLine(0, 0, 0, -renderLength * factorX);
         gc.restore();
     }
 
@@ -67,6 +76,12 @@ public class MainingLaser extends Entity {
         System.out.println((dist1 + dist2) + " " + linedist);
 
         return (dist1 + dist2 >= linedist-buffer && dist1 + dist2 <= linedist+buffer);
+    }
+
+    public boolean lineToLine(Vector x1, Vector x2, Vector x3, Vector x4) {
+        double uA = ((x4.getX()-x3.getX())*(x1.getY()-x3.getY()) - (x4.getY()-x3.getY())*(x1.getX()-x3.getX())) / ((x4.getY()-x3.getY())*(x2.getX()-x1.getX()) - (x4.getX()-x3.getX())*(x2.getY()-x1.getY()));
+        double uB = ((x2.getX()-x1.getX())*(x1.getY()-x3.getY()) - (x2.getY()-x1.getY())*(x1.getX()-x3.getX())) / ((x4.getY()-x3.getY())*(x2.getX()-x1.getX()) - (x4.getX()-x3.getX())*(x2.getY()-x1.getY()));
+        return (uA >= 0 && uA <= 1 && uB >= 0 && uB <= 1);
     }
 
     @Override
