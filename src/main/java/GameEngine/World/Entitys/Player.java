@@ -12,6 +12,24 @@ public class Player extends Entity {
     Frame frame;
     double maxRockets = 0;
     double momRockets = 0;
+    double energy = 0;
+    double max_energy = 100;
+
+    public double getEnergy() {
+        return energy;
+    }
+
+    public void setEnergy(double energy) {
+        this.energy = energy;
+    }
+
+    public double getMax_energy() {
+        return max_energy;
+    }
+
+    public void setMax_energy(double max_energy) {
+        this.max_energy = max_energy;
+    }
 
     public double getMaxRockets() {
         return maxRockets;
@@ -54,20 +72,6 @@ public class Player extends Entity {
         this.setMomRockets(this.getMaxRockets());
     }
 
-    @Override
-    public void onColliding(Entity e) {
-        if (e.getClass() == Astroid.class) {
-            //System.out.println("Ouch Astroid");
-            double momX = this.getX()-e.getX();
-            double momY = this.getY()-e.getY();
-            this.getCollisions().add(new Vector(momX, momY));
-
-            this.setHp(this.getHp()-1);
-            e.setHp(e.getHp()-1);
-        } else if (e.getClass() == AstroidPiece.class) {
-            e.setDelete(true);
-        }
-    }
     @Override
     public void setHp(int hp){
         super.setHp(hp);

@@ -2,6 +2,7 @@ package GameEngine.World.Entitys;
 
 import GameEngine.Frame;
 import GameEngine.World.Entity;
+import GameEngine.World.Vector;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.effect.Effect;

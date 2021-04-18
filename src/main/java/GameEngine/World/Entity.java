@@ -2,6 +2,8 @@ package GameEngine.World;
 
 import GameEngine.Frame;
 import GameEngine.UI.Components.HealthBar;
+import GameEngine.World.Entitys.Astroid;
+import GameEngine.World.Entitys.AstroidPiece;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
@@ -184,8 +186,8 @@ public class Entity implements Comparable<Entity>{
         this.velY += this.accY;
 
         for (Vector v : this.getCollisions()) {
-            this.velX *= (Math.abs(v.getX()/v.Length())*-1);
-            this.velY *= (Math.abs(v.getY()/v.Length())*-1);
+            this.velX *= (Math.abs(v.getX()/v.Length()*1.1)*-1);
+            this.velY *= (Math.abs(v.getY()/v.Length()*1.1)*-1);
         }
         this.setCollisions(new ArrayList<Vector>());
 
@@ -210,8 +212,12 @@ public class Entity implements Comparable<Entity>{
     }
 
     public void onColliding(Entity e) {
-        if (isHasPushback()) {
+        if (isHasPushback() && e.isHasPushback()) {
+            double momX = this.getX()-e.getX();
+            double momY = this.getY()-e.getY();
+            this.getCollisions().add(new Vector(momX, momY));
 
+            this.setHp(this.getHp()-1);
         }
     }
 
