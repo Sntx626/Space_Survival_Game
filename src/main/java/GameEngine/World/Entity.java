@@ -238,7 +238,7 @@ public class Entity implements Comparable<Entity>{
             double momX = this.getX()-e.getX();
             double momY = this.getY()-e.getY();
             this.getCollisions().add(new Vector(momX, momY));
-            this.addForce(Math.random(), Math.random());
+            this.addForce(Math.random() * 2 - 1, Math.random() * 2 - 1);
             this.damage(1);
         }
     }

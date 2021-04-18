@@ -71,6 +71,13 @@ public class Player extends Entity {
         this.setMaxRockets(20);
         this.setMomRockets(this.getMaxRockets());
     }
+    @Override
+    public void onColliding(Entity e) {
+        super.onColliding(e);
+         if (e.getClass() == AstroidPiece.class) {
+            e.setDelete(true);
+        }
+    }
 
     @Override
     public void setHp(int hp){
