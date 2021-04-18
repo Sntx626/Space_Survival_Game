@@ -204,6 +204,10 @@ public class Entity implements Comparable<Entity>{
         this.velY += this.accY;
 
         for (Vector v : this.getCollisions()) {
+            //if (v.Length() > -0.0001 && v.Length() < 0.00001) {
+            if (v.Length() == 0) {
+                System.out.println("Probaly someone fcked this up");
+            }
             this.velX *= (Math.abs(v.getX()/v.Length()*1.1)*-1);
             this.velY *= (Math.abs(v.getY()/v.Length()*1.1)*-1);
         }

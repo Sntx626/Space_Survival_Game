@@ -210,7 +210,7 @@ public class Game extends Frame implements Runnable{
                                 Vector fA = new Vector(Math.sin(Math.toRadians(angle)) * speed, Math.cos(Math.toRadians(angle)) * speed);
                                 astroid.setX(e1.getX());
                                 astroid.setY(e1.getY());
-                                astroid.setImmuneTick(1000);
+                                astroid.setImmuneTick(5000);
                                 astroid.addForce(fA.getX(), fA.getY());
                                 this.getWorld().addEntity(astroid);
                                 //AstroidPiece piece = new AstroidPiece(this, e1, new Vector(Math.sin(Math.toRadians(angle)) * length, Math.cos(Math.toRadians(angle)) * length));
@@ -232,6 +232,7 @@ public class Game extends Frame implements Runnable{
                 for (Entity e1: tempEnt) {
                     if (e1.isDelete())
                     {
+                        System.out.println("I died because of hp");
                         e1.disableHealthBar();
                         this.getWorld().getEntities().remove(e1);
                     }
