@@ -32,6 +32,7 @@ public class Astroid extends Entity {
     }
 
     public void setImmune(int delay) {
+        this.setImmune(true);
         this.immuneTick = delay;
     }
 
@@ -41,7 +42,7 @@ public class Astroid extends Entity {
         if (immuneTick > 0) {
             immuneTick--;
         } else if (immuneTick == 0) {
-            this.setCanCollide(true);
+            this.setImmune(false);
             immuneTick--;
         }
     }

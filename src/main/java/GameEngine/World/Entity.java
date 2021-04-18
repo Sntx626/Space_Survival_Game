@@ -15,6 +15,16 @@ public class Entity implements Comparable<Entity>{
 
     Image sprite;
 
+    boolean isImmune = false;
+
+    public boolean isImmune() {
+        return isImmune;
+    }
+
+    public void setImmune(boolean immune) {
+        isImmune = immune;
+    }
+
     public boolean isHasPushback() {
         return hasPushback;
     }
@@ -145,6 +155,12 @@ public class Entity implements Comparable<Entity>{
         this.maxHp = maxHp;
     }
 
+    public void damage(int amount) {
+        if (!this.isImmune) {
+            this.setHp(this.getHp()-amount);
+        }
+    }
+
     public void enableHealthBar() {
         if (healthBar == null) {
             healthBar = new HealthBar(this);
@@ -217,7 +233,7 @@ public class Entity implements Comparable<Entity>{
             double momY = this.getY()-e.getY();
             this.getCollisions().add(new Vector(momX, momY));
 
-            this.setHp(this.getHp()-1);
+            this.damage(1);
         }
     }
 
