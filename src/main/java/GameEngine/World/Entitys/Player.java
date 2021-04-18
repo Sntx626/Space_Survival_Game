@@ -39,7 +39,13 @@ public class Player extends Entity {
             e.setDelete(true);
         }
     }
-
+    @Override
+    public void setHp(int hp){
+        super.setHp(hp);
+        if (this.getHp() == 0) {
+            this.frame.getRenderer().resetGame();
+        }
+    }
 
 
     @Override

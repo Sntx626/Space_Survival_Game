@@ -46,16 +46,8 @@ public class Game extends Frame implements Runnable{
 
         f = new Fog(this);
 
-        Astroid a = new Astroid(this);
-        a.setX(-300);
-        a.setY(-250);
-        Astroid a2 = new Astroid(this);
-        a2.setX(0);
-        a2.setY(0);
 
 
-        this.getWorld().addEntity(a);
-        this.getWorld().addEntity(a2);
         this.getWorld().addEntity(p);
         this.getWorld().addEntity(f);
         new Thread(this).start();
@@ -156,11 +148,17 @@ public class Game extends Frame implements Runnable{
                     if (e1.getClass() == Astroid.class && e1.getHp() <= 0) {
                         e1.setDelete(true);
                         //GenerateAstroidPiece
-                        for (int i = 0; i < 3; i++) {
+                        for (int i = 0; i < 5; i++) {
                             double angle = Math.random() * 360;
                             double length = Math.random() * 3;
                             AstroidPiece piece = new AstroidPiece(this, e1, new Vector(Math.sin(Math.toRadians(angle)) * length, Math.cos(Math.toRadians(angle)) * length));
                             this.getWorld().addEntity(piece);
+                        }
+                    } else if (e1.getClass() == Astroid.class || e1.getClass() == AstroidPiece.class) {
+
+                        Vector toHealthBarTarget = new Vector(this.p.getX()-e1.getX(), this.p.getY()-e1.getY());
+                        if (toHealthBarTarget.Length() > (9*80*3)/2) {
+                            e1.setDelete(true);
                         }
                     }
                 }
@@ -174,17 +172,52 @@ public class Game extends Frame implements Runnable{
                     }
                 }
 
+
+                int countAstroids = 0;
+                for (Entity e1: tempEnt) {
+                    if (e1.getClass() == Astroid.class) {
+                        countAstroids++;
+                    }
+                }
+                int maxAstroids = 20;
+                while (countAstroids < maxAstroids) {
+                    double minX = this.p.getX() - (16*80*3)/2;
+                    double minY = this.p.getY() - (9*80*3)/2;
+                    double maxX = this.p.getX() + (16*80*3)/2;
+                    double maxY = this.p.getY() + (9*80*3)/2;
+                    double fogSize = this.f.getW()/4;
+                    double x = Math.random() * (maxX-minX) + minX;
+                    double y = Math.random() * (maxY-minY) + minY;
+                    Vector toHealthBarTarget = new Vector(this.p.getX()-x, this.p.getY()-y);
+                    System.out.println(x + " " + y);
+                    while (toHealthBarTarget.Length() < fogSize) {
+                        x = Math.random() * (maxX-minX) + minX;
+                        y = Math.random() * (maxY-minY) + minY;
+                        toHealthBarTarget = new Vector(this.p.getX()-x, this.p.getY()-y);
+                    }
+                    Astroid a3 = new Astroid(this);
+                    a3.setX(x);
+                    a3.setY(y);
+                    this.getWorld().addEntity(a3);
+
+                    countAstroids++;
+                }
+
+
+
                 tempEnt = (ArrayList<Entity>)this.getWorld().getEntities().clone();
 
                 for (Entity e1: tempEnt) {
                     if (e1.isCanCollide()){
                         ArrayList<Entity> isColliding = new ArrayList<Entity>();
+                        ArrayList<Vector> collisionVector = new ArrayList<Vector>();
                         for (Entity e2 : tempEnt) {
                             // && e2.getClass() == Astroid.class
                             if (e1 != e2 && e2.isCanCollide()) {
                                 if (e1.isColliding(e2)) {
                                     if (e1.getClass() == MainingLaser.class && e2 != p) {
                                         isColliding.add(e2);
+                                        collisionVector.add(((MainingLaser)e1).getCollidingPoint(e2.getX(), e2.getY(), e2.getW()));
                                     }
                                     e1.onColliding(e2);
                                 }
@@ -192,10 +225,11 @@ public class Game extends Frame implements Runnable{
                         }
                         if (e1.getClass() == MainingLaser.class && isColliding.size() > 0) {
                             Entity closest = isColliding.get(0);
-                            double closestDist = Math.sqrt(Math.pow(closest.getX() - p.getX(), 2) + Math.pow(closest.getY() - p.getY(), 2));
+                            double closestDist = Math.sqrt(Math.pow(collisionVector.get(0).getX() - p.getX(), 2) + Math.pow(collisionVector.get(0).getY() - p.getY(), 2));
 
                             for (int i = 1; i < isColliding.size(); i++) {
-                                double dist = Math.sqrt(Math.pow(isColliding.get(i).getX() - p.getX(), 2) + Math.pow(isColliding.get(i).getY() - p.getY(), 2));
+
+                                double dist = Math.sqrt(Math.pow(collisionVector.get(i).getX() - p.getX(), 2) + Math.pow(collisionVector.get(i).getY() - p.getY(), 2));
                                 if (closestDist > dist) {
                                     closest = isColliding.get(i);
                                     closestDist = dist;

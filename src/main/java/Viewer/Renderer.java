@@ -40,6 +40,10 @@ public class Renderer{
         return canvas;
     }
 
+    public void resetGame() {
+        this.changeFrame(new Game(this));
+    }
+
     boolean continueRendering = true;
 
     int WIDTH = 16*80, HEIGHT = 9*80;

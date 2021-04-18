@@ -23,7 +23,7 @@ public class MainingLaser extends Entity {
         this.renderLength = renderLength;
     }
 
-    double renderLength = this.getW();
+    double renderLength = 0;
 
     public MainingLaser(Frame frame, Entity belongTo) {
         super(frame);
@@ -84,6 +84,19 @@ public class MainingLaser extends Entity {
         return (uA >= 0 && uA <= 1 && uB >= 0 && uB <= 1);
     }
 
+    public Vector getCollidingPoint(double x, double y, int r) {
+        double px = this.belongTo.getX(), py = this.belongTo.getY();
+        double endx = px + Math.sin(Math.toRadians(lastAngle)) * this.getW(), endy = py - Math.cos(Math.toRadians(lastAngle)) * this.getW();
+
+        double distX = px - endx;
+        double distY = py - endy;
+        double len = Math.sqrt(distX * distX + distY * distY);
+        double dot = (((x-px)*(endx-px))+((y-py)*(endy-py)))/Math.pow(len, 2);
+        double closestX = px + (dot * (endx - px));
+        double closestY = py + (dot * (endy - py));
+        return new Vector(closestX, closestY);
+    }
+
     @Override
     public boolean isColliding(Entity e) {
         boolean isNotPlayer = e.getClass() != Player.class;
@@ -109,7 +122,6 @@ public class MainingLaser extends Entity {
             double dot = (((e.getX()-px)*(endx-px))+((e.getY()-py)*(endy-py)))/Math.pow(len, 2);
             double closestX = px + (dot * (endx - px));
             double closestY = py + (dot * (endy - py));
-            if (isNotPlayer) System.out.println(closestX + " " + closestY);
 
             boolean onSegment = pointOnLine(closestX, closestY, px, py, endx, endy);
             if (!onSegment) return false;

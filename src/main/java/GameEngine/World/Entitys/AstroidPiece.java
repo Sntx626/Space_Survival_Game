@@ -15,7 +15,8 @@ public class AstroidPiece extends Entity {
         this.setMaxSpeed(3);
         this.setX(astroid.getX());
         this.setY(astroid.getY());
-        this.setW((int)(Math.random() * (astroid.getW()/2 - 20) + 20));
+        this.setW((int)(Math.random() * (astroid.getW()/3 - 20) + 20));
+        this.setZ_index(-1);
         this.setH(this.getW());
         this.addForce(initForce.getX(), initForce.getY());
     }

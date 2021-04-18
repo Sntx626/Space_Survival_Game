@@ -12,7 +12,7 @@ public class Astroid extends Entity {
     public Astroid(Frame frame) {
         super(frame);
         this.setZ_index(-1);
-        this.setH((int)(Math.random() * (400 - 100) + 100));
+        this.setH((int)(Math.random() * (300 - 100) + 100));
         this.setW(this.getH());
         this.setCanCollide(true);
         this.setMaxHp(100);
