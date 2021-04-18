@@ -333,7 +333,11 @@ public class Game extends Frame implements Runnable{
                 expectedRunDuration = timesRun*tickDuration;
                 actualRunDuration = Instant.now().toEpochMilli()-startTime;
                 if (actualRunDuration < expectedRunDuration) {
-                    Thread.sleep(expectedRunDuration-actualRunDuration);
+                    Thread.sleep(expectedRunDuration - actualRunDuration);
+                } else if (actualRunDuration-expectedRunDuration > tickDuration*100) {
+                    long ticksSkipped = (actualRunDuration-expectedRunDuration)/tickDuration;
+                    System.out.println(String.format("Can't keep up! Did the system time change, or is the server overloaded? Running %sms behind, skipping %s tick(s)", (actualRunDuration-expectedRunDuration), ticksSkipped));
+                    timesRun += ticksSkipped;
                 }
 
             }
