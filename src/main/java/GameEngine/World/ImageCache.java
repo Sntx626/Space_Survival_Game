@@ -23,6 +23,10 @@ public class ImageCache {
         entity_data.add(new Image("file:rsc/entity_data/fog.png"));
         entity_data.add(new Image("file:rsc/entity_data/player.png"));
         entity_data.add(new Image("file:rsc/entity_data/rocket.png"));
+        entity_data.add(new Image("file:rsc/entity_data/DebrisEnergy.png"));
+        entity_data.add(new Image("file:rsc/entity_data/DebrisRocket.png"));
+        entity_data.add(new Image("file:rsc/entity_data/DebrisScore.png"));
+        entity_data.add(new Image("file:rsc/entity_data/DebrisSight.png"));
     }
 
 
