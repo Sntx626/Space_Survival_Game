@@ -158,7 +158,7 @@ public class Entity implements Comparable<Entity>{
     public void damage(int amount) {
         System.out.println("Got Damage");
         if (!this.isImmune) {
-            System.out.println("Hit Damage");
+            //System.out.println("Hit Damage");
             this.setHp(this.getHp()-amount);
         }
     }
@@ -204,12 +204,12 @@ public class Entity implements Comparable<Entity>{
         this.velY += this.accY;
 
         for (Vector v : this.getCollisions()) {
-            //if (v.Length() > -0.0001 && v.Length() < 0.00001) {
-            if (v.Length() == 0) {
-                System.out.println("Probaly someone fcked this up");
+            double length = v.Length();
+            if (length > -0.0001 && length < 0.0001) {
+                length = 0.0001;
             }
-            this.velX *= (Math.abs(v.getX()/v.Length()*1.1)*-1);
-            this.velY *= (Math.abs(v.getY()/v.Length()*1.1)*-1);
+            this.velX *= (Math.abs((v.getX()/length)+(1+Math.random()/10))*-1);
+            this.velY *= (Math.abs((v.getY()/length)+(1+Math.random()/10))*-1);
         }
         this.setCollisions(new ArrayList<Vector>());
 
@@ -238,7 +238,7 @@ public class Entity implements Comparable<Entity>{
             double momX = this.getX()-e.getX();
             double momY = this.getY()-e.getY();
             this.getCollisions().add(new Vector(momX, momY));
-
+            this.addForce(Math.random(), Math.random());
             this.damage(1);
         }
     }

@@ -208,9 +208,9 @@ public class Game extends Frame implements Runnable{
                                 astroid.setH(length);
                                 astroid.setW(astroid.getH());
                                 Vector fA = new Vector(Math.sin(Math.toRadians(angle)) * speed, Math.cos(Math.toRadians(angle)) * speed);
-                                astroid.setX(e1.getX());
-                                astroid.setY(e1.getY());
-                                astroid.setImmuneTick(5000);
+                                astroid.setX(e1.getX()+Math.random()*10);
+                                astroid.setY(e1.getY()+Math.random()*10);
+                                astroid.setImmuneTick(100);
                                 astroid.addForce(fA.getX(), fA.getY());
                                 this.getWorld().addEntity(astroid);
                                 //AstroidPiece piece = new AstroidPiece(this, e1, new Vector(Math.sin(Math.toRadians(angle)) * length, Math.cos(Math.toRadians(angle)) * length));
