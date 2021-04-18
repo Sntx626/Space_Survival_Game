@@ -319,7 +319,7 @@ public class Game extends Frame implements Runnable{
                     timeOfLastCount = now;
                 }
 
-                rocketCountLabel.setContent("Rocktes: " + this.p.getMomRockets());
+                rocketCountLabel.setContent("Rocktes: " + (int)this.p.getMomRockets());
 
                 //execDuration = (long)Math.ceil((Instant.now().getNano()-nano)/1000000);
 
