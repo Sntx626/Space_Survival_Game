@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="javafx" name="Space_Survival_Game">
+    <output-path>$PROJECT_DIR$/out/artifacts/Space_Survival_Game</output-path>
+    <root id="root">
+      <element id="archive" name="Space_Survival_Game.jar">
+        <element id="module-output" name="Space_Survival_Game" />
+      </element>
+    </root>
+  </artifact>
+</component>
