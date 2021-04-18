@@ -198,9 +198,10 @@ public class Game extends Frame implements Runnable{
                         e1.setDelete(true);
                         //GenerateAstroidPiece
                         if (e1.getW() < 64){
-
+                            AstroidPiece piece = new AstroidPiece(this, e1, new Vector(0, 0));
+                            this.getWorld().addEntity(piece);
                         } else {
-                            for (int i = 0; i < (int)((Math.random() * 3 + 2)); i++) {
+                            for (int i = 0; i < (int)((Math.random() * 3 + 1)); i++) {
                                 double angle = Math.random() * 360;
                                 int length = (int)(Math.random() * (e1.getW() - 32) + 32);
                                 double speed = Math.random() * 10 + 5;
@@ -208,8 +209,8 @@ public class Game extends Frame implements Runnable{
                                 astroid.setH(length);
                                 astroid.setW(astroid.getH());
                                 Vector fA = new Vector(Math.sin(Math.toRadians(angle)) * speed, Math.cos(Math.toRadians(angle)) * speed);
-                                astroid.setX(e1.getX()+Math.random()*10);
-                                astroid.setY(e1.getY()+Math.random()*10);
+                                astroid.setX(e1.getX() + (fA.getX()/speed) * (e1.getW()/2));
+                                astroid.setY(e1.getY() + (fA.getY()/speed) * (e1.getW()/2));
                                 astroid.setImmuneTick(100);
                                 astroid.addForce(fA.getX(), fA.getY());
                                 this.getWorld().addEntity(astroid);
@@ -232,7 +233,6 @@ public class Game extends Frame implements Runnable{
                 for (Entity e1: tempEnt) {
                     if (e1.isDelete())
                     {
-                        System.out.println("I died because of hp");
                         e1.disableHealthBar();
                         this.getWorld().getEntities().remove(e1);
                     }
