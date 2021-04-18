@@ -11,6 +11,15 @@ public class Player extends Entity {
 
     Frame frame;
 
+    public double getLastAngle() {
+        return lastAngle;
+    }
+
+    public void setLastAngle(double lastAngle) {
+        this.lastAngle = lastAngle;
+    }
+
+    double lastAngle = 0;
 
     public Player(Frame frame) {
         super(frame);
@@ -66,10 +75,10 @@ public class Player extends Entity {
                 -(size.getY()/2)
         };
 
-        double angle = this.getAngleToMouse(cx, cy, cw, ch, w, h, mx, my);
+        lastAngle = this.getAngleToMouse(cx, cy, cw, ch, w, h, mx, my);
 
         gc.translate(pos.getX(), pos.getY());
-        gc.rotate(angle);
+        gc.rotate(lastAngle);
         //gc.fillPolygon(playerModelX, playerModelY, 3);
         //gc.fillRect(-size.getX()/2, -size.getY()/2, size.getX(), size.getY());
         gc.drawImage(this.getSprite(), -(size.getX()*2)/2, -(size.getY()*2)/2, size.getX()*2, size.getY()*2);

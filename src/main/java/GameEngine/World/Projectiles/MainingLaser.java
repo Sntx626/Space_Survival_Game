@@ -85,6 +85,11 @@ public class MainingLaser extends Entity {
 
     public Vector getCollidingPoint(double x, double y, int r) {
         double px = this.belongTo.getX(), py = this.belongTo.getY();
+        double lastAngle = 0.0;
+        if (this.belongTo.getClass() == Player.class) {
+            lastAngle = ((Player)this.belongTo).getLastAngle();
+        }
+
         double endx = px + Math.sin(Math.toRadians(lastAngle)) * this.getW(), endy = py - Math.cos(Math.toRadians(lastAngle)) * this.getW();
 
         double distX = px - endx;
