@@ -127,7 +127,7 @@ public class Entity implements Comparable<Entity>{
             healthBar = new HealthBar(this);
             this.frame.getUi().addComponent(healthBar);
         } else {
-            System.out.println("Health Bar already enabled!");
+            //System.out.println("Health Bar already enabled!");
         }
     }
 
@@ -136,7 +136,7 @@ public class Entity implements Comparable<Entity>{
             this.frame.getUi().removeComponent(healthBar);
             healthBar =  null;
         } else {
-            System.out.println("Health Bar already disabled!");
+            //System.out.println("Health Bar already disabled!");
         }
     }
 

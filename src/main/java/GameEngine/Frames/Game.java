@@ -219,7 +219,6 @@ public class Game extends Frame implements Runnable{
                         y = Math.random() * (maxY - minY) + minY;
                         r = (int)(Math.random() * (300 - 100) + 100);
                         Vector toHealthBarTarget = new Vector(this.p.getX() - x, this.p.getY() - y);
-                        System.out.println(x + " " + y);
                         while (toHealthBarTarget.Length() < fogSize) {
                             x = Math.random() * (maxX - minX) + minX;
                             y = Math.random() * (maxY - minY) + minY;

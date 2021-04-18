@@ -24,10 +24,10 @@ public class ImageCache {
         entity_data.add(new Image("file:rsc/entity_data/player.png"));
     }
 
+
     public Image getImage(String imageName) {
         for (Image i : this.entity_data) {
-            if (i.getUrl() == imageName) {
-                System.out.println("Loaded: " + i.getUrl());
+            if (i.getUrl().equals(imageName)) {
                 return i;
             }
         }

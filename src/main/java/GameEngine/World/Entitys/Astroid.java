@@ -3,6 +3,8 @@ package GameEngine.World.Entitys;
 import GameEngine.Frame;
 import GameEngine.World.Entity;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.effect.BlendMode;
+import javafx.scene.effect.Effect;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
@@ -17,7 +19,9 @@ public class Astroid extends Entity {
         this.setW(this.getH());
         this.setRotation(Math.random() * 360);
         //System.out.println("Loading Image");
-        this.setSprite(this.getFrame().getWorld().getImageCache().getImage(String.format("file:rsc/entity_data/asteroid_%s.png", (int)(Math.random()*10))));
+        Image img = this.getFrame().getWorld().getImageCache().getImage(String.format("file:rsc/entity_data/asteroid_%s.png", (int)(Math.random()*10)));
+        this.setSprite(img);
+
         //System.out.println("Loaded: " + this.getSprite().getUrl());
         this.setCanCollide(true);
         this.setMaxHp(100);

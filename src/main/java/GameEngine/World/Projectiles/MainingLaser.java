@@ -73,7 +73,6 @@ public class MainingLaser extends Entity {
         double linedist = Math.sqrt(Math.pow(startx - endx, 2) + Math.pow(starty - endy, 2));
 
         double buffer = 0.1;
-        System.out.println((dist1 + dist2) + " " + linedist);
 
         return (dist1 + dist2 >= linedist-buffer && dist1 + dist2 <= linedist+buffer);
     }
