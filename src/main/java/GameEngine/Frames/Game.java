@@ -32,6 +32,9 @@ public class Game extends Frame implements Runnable{
     int maxSpawnX = 0, maxSpawnY = 0;
     int maxAstroids = 100;
 
+    double playerSpeed = 5;
+    int maxSpeed = 10;
+
     public Game(Renderer renderer) {
         super(renderer);
         // generate ui, world & background -> pass to frame
@@ -47,6 +50,7 @@ public class Game extends Frame implements Runnable{
         p = new Player(this);
         p.setX(500);
         p.setY(0);
+        p.setMaxSpeed(maxSpeed);
 
         this.getUi().addComponent(new TextBox("Dolor Sit Amet", 10, 40));
 
@@ -165,16 +169,16 @@ public class Game extends Frame implements Runnable{
                 double accX = 0,  accY = 0;
                 double responsive = 0.01;
                 if (pd) {
-                   accX += 1*responsive;
+                   accX += playerSpeed*responsive;
                 }
                 if (pa) {
-                    accX -= 1*responsive;
+                    accX -= playerSpeed*responsive;
                 }
                 if (pw) {
-                    accY -= 1*responsive;
+                    accY -= playerSpeed*responsive;
                 }
                 if (ps) {
-                    accY += 1*responsive;
+                    accY += playerSpeed*responsive;
                 }
                 this.p.addForce(accX, accY);
 
@@ -194,7 +198,7 @@ public class Game extends Frame implements Runnable{
                             AstroidPiece piece = new AstroidPiece(this, e1, new Vector(Math.sin(Math.toRadians(angle)) * length, Math.cos(Math.toRadians(angle)) * length));
                             this.getWorld().addEntity(piece);
                         }
-                    } else if (e1.getClass() == Astroid.class || e1.getClass() == AstroidPiece.class) {
+                    } else if (e1.getClass() == Astroid.class || e1.getClass() == AstroidPiece.class || e1.getClass() == Rocket.class) {
 
                         Vector toHealthBarTarget = new Vector(this.p.getX()-e1.getX(), this.p.getY()-e1.getY());
                         if (toHealthBarTarget.Length() > this.maxSpawnX/2) {

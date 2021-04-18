@@ -101,7 +101,7 @@ public class Player extends Entity {
         gc.rotate(lastAngle);
         //gc.fillPolygon(playerModelX, playerModelY, 3);
         //gc.fillRect(-size.getX()/2, -size.getY()/2, size.getX(), size.getY());
-        gc.drawImage(this.getSprite(), -(size.getX()*2)/2, -(size.getY()*2)/2, size.getX()*2, size.getY()*2);
+        gc.drawImage(this.getSprite(), -(size.getX())/2, -(size.getY())/2, size.getX(), size.getY());
         //gc.fillPolygon(playerModelX, playerModelY, 3);
         gc.restore();
         //gc.fillRect(tempX - (tempW/2), tempY - (tempH/2), tempW, tempH);

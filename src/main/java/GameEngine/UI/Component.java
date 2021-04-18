@@ -11,7 +11,7 @@ public class Component {
 
     public Component() {}
 
-    public void render(GraphicsContext gc, Camera camera){
+    public void render(GraphicsContext gc, Camera camera, int w, int h){
     }
 
     public int getX() {
