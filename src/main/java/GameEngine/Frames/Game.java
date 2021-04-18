@@ -122,9 +122,21 @@ public class Game extends Frame implements Runnable{
         this.setWindowTitle("Start Menu");
     }
 
+    public int getCurrentFramerate() {
+        return currentFramerate;
+    }
+
+    public void setCurrentFramerate(int currentFramerate) {
+        this.currentFramerate = currentFramerate;
+    }
+
+    int currentFramerate = 0;
     @Override
     public void run() {
         try {
+            int framesInTheLastSecond = 0;
+            long now;
+            long timeOfLastCount = 0L;
 
 
 
@@ -270,7 +282,13 @@ public class Game extends Frame implements Runnable{
                         }
                     }
                 }
-
+                framesInTheLastSecond++;
+                now = System.currentTimeMillis();
+                if (now - (1000) > timeOfLastCount) {
+                    currentFramerate = (int)((framesInTheLastSecond*1000)/(now-timeOfLastCount));
+                    framesInTheLastSecond = 0;
+                    timeOfLastCount = now;
+                }
                 Thread.sleep(1);
             }
         } catch (InterruptedException e) {
