@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class Fog  extends Entity {
 
-    Image img = new Image("file:rsc/entity_data/Fog.png");
+    Image img = new Image("file:rsc/entity_data/fog.png");
     Frame frame;
 
     double diameter;

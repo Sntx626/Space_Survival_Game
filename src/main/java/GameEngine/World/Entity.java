@@ -66,7 +66,15 @@ public class Entity implements Comparable<Entity>{
 
     HITBOX hitbox = HITBOX.circle;
 
-    private double x, y;
+    private double x, y, rotation;
+
+    public double getRotation() {
+        return rotation;
+    }
+
+    public void setRotation(double rotation) {
+        this.rotation = rotation;
+    }
 
     public ArrayList<Vector> getCollisions() {
         return collisions;
@@ -184,7 +192,6 @@ public class Entity implements Comparable<Entity>{
 
     }
 
-
     public boolean isColliding(Entity e) {
         if (this.hitbox == HITBOX.circle && e.hitbox == HITBOX.circle) {
             double dx = this.x - e.getX();
@@ -265,6 +272,7 @@ public class Entity implements Comparable<Entity>{
         tempY = (int)((double)tempY * factorY);
         return new Vector(tempX, tempY);
     }
+
     public Vector getViewPortCords (double cx, double cy, double cw, double ch, double w, double h) {
         int tempX = (int)((cw / 2) + (this.getX()-cx));
         int tempY = (int)((ch / 2) + (this.getY()-cy));
@@ -286,6 +294,7 @@ public class Entity implements Comparable<Entity>{
         double tempH = ((double) this.getH() * factorY);
         return new Vector(tempW, tempH);
     }
+
     public Vector getViewPortSize (double cx, double cy, double cw, double ch, double w, double h) {
 
         double factorY = (double)h / (double)ch;

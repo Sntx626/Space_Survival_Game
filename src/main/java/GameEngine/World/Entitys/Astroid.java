@@ -3,6 +3,7 @@ package GameEngine.World.Entitys;
 import GameEngine.Frame;
 import GameEngine.World.Entity;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
 public class Astroid extends Entity {
@@ -14,6 +15,10 @@ public class Astroid extends Entity {
         this.setZ_index(-1);
         this.setH((int)(Math.random() * (300 - 100) + 100));
         this.setW(this.getH());
+        this.setRotation(Math.random() * 360);
+        //System.out.println("Loading Image");
+        this.setSprite(this.getFrame().getWorld().getImageCache().getImage(String.format("file:rsc/entity_data/asteroid_%s.png", (int)(Math.random()*10))));
+        //System.out.println("Loaded: " + this.getSprite().getUrl());
         this.setCanCollide(true);
         this.setMaxHp(100);
         this.setHp(100);
@@ -38,7 +43,9 @@ public class Astroid extends Entity {
 
 
         gc.translate(tempX, tempY);
-        gc.fillOval(-tempW/2.0, -tempH/2.0, tempW, tempH);
+        gc.rotate(this.getRotation());
+        gc.drawImage(this.getSprite(), -tempW/2.0, -tempH/2.0, tempW, tempH);
+        //gc.fillOval(-tempW/2.0, -tempH/2.0, tempW, tempH);
         gc.restore();
         //gc.fillRect(tempX - (tempW/2), tempY - (tempH/2), tempW, tempH);
     }

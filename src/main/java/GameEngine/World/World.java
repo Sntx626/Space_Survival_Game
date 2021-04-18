@@ -11,6 +11,7 @@ public class World{
 
     Frame frame;
 
+    ImageCache imageCache;
     ArrayList<Entity> entities = new ArrayList<Entity>();
     Camera camera;
 
@@ -30,6 +31,11 @@ public class World{
         camera.setY(0);
         camera.setW(16*100);
         camera.setH(9*100);
+        this.imageCache = new ImageCache();
+    }
+
+    public ImageCache getImageCache() {
+        return imageCache;
     }
 
     public void addEntity(Entity e) {
