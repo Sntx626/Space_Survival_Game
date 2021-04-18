@@ -28,7 +28,7 @@ public class MainingLaser extends Entity {
     public MainingLaser(Frame frame, Entity belongTo) {
         super(frame);
         this.belongTo = belongTo;
-        this.setW(500);
+        this.setW(100);
         this.setCanCollide(true);
     }
 

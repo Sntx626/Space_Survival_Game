@@ -9,6 +9,7 @@ public class Component {
 
     int x, y, w, h;
 
+
     public Component() {}
 
     public void render(GraphicsContext gc, Camera camera, int w, int h){

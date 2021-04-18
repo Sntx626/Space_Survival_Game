@@ -27,7 +27,10 @@ public class Game extends Frame implements Runnable{
 
     Player p;
     Fog f;
+
     boolean pw = false, ps = false, pa = false, pd = false;
+
+    TextBox rocketCountLabel;
 
     int maxSpawnX = 0, maxSpawnY = 0;
     int maxAstroids = 100;
@@ -44,17 +47,19 @@ public class Game extends Frame implements Runnable{
 
         this.getWorld().setCanZoom(true);
 
-        this.getUi().addComponent(new TextBox("Lorem Ipsum", 10, 20));
-        this.getUi().addComponent(new TextBox("Dolor Sit Amet", 10, 40));
+
+        rocketCountLabel = new TextBox("Rockets: 0", 10, 40);
+        this.getUi().addComponent(rocketCountLabel);
 
         p = new Player(this);
         p.setX(500);
         p.setY(0);
         p.setMaxSpeed(maxSpeed);
 
-        this.getUi().addComponent(new TextBox("Dolor Sit Amet", 10, 40));
 
         f = new Fog(this);
+        f.setH(400);
+        f.setW(400);
 
 
 
@@ -313,6 +318,8 @@ public class Game extends Frame implements Runnable{
                     framesInTheLastSecond = 0;
                     timeOfLastCount = now;
                 }
+
+                rocketCountLabel.setContent("Rocktes: " + this.p.getMomRockets());
 
                 //execDuration = (long)Math.ceil((Instant.now().getNano()-nano)/1000000);
 
