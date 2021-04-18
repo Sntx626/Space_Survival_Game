@@ -19,6 +19,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
 import java.lang.reflect.Array;
+import java.time.Clock;
+import java.time.Instant;
 import java.util.ArrayList;
 
 public class Game extends Frame implements Runnable{
@@ -137,10 +139,14 @@ public class Game extends Frame implements Runnable{
             int framesInTheLastSecond = 0;
             long now;
             long timeOfLastCount = 0L;
-
-
+            Clock clock = Clock.systemDefaultZone();
+            long execDuration;
 
             while (true) {
+
+                Instant instant = clock.instant();   // or Instant.now();
+                long nano = instant.getNano();
+
                 double accX = 0,  accY = 0;
                 double responsive = 0.01;
                 if (pd) {
@@ -289,7 +295,13 @@ public class Game extends Frame implements Runnable{
                     framesInTheLastSecond = 0;
                     timeOfLastCount = now;
                 }
-                Thread.sleep(1);
+
+                instant = clock.instant();   // or Instant.now();
+                execDuration = (instant.getNano()-nano)/1000000;
+                //System.out.println("Tick duration: " + execDuration);
+                if (execDuration == 0) {
+                    Thread.sleep(1);
+                }
             }
         } catch (InterruptedException e) {
 
