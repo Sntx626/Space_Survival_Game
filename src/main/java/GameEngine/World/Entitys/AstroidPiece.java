@@ -2,22 +2,22 @@ package GameEngine.World.Entitys;
 
 import GameEngine.Frame;
 import GameEngine.World.Entity;
+import GameEngine.World.Vector;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
-public class Astroid extends Entity {
+public class AstroidPiece extends Entity {
 
-    Frame frame;
 
-    public Astroid(Frame frame) {
+    public AstroidPiece(Frame frame, Entity astroid, Vector initForce) {
         super(frame);
-        this.setZ_index(-1);
-        this.setH((int)(Math.random() * (400 - 100) + 100));
-        this.setW(this.getH());
         this.setCanCollide(true);
-        this.setMaxHp(100);
-        this.setHp(100);
-        this.enableHealthBar();
+        this.setMaxSpeed(3);
+        this.setX(astroid.getX());
+        this.setY(astroid.getY());
+        this.setW((int)(Math.random() * (astroid.getW()/2 - 20) + 20));
+        this.setH(this.getW());
+        this.addForce(initForce.getX(), initForce.getY());
     }
 
     @Override

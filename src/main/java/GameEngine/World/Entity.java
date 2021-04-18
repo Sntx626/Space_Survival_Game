@@ -72,6 +72,15 @@ public class Entity implements Comparable<Entity>{
     int w, h;
 
     double accX = 0, accY  = 0, velX = 0, velY = 0;
+
+    public int getMaxSpeed() {
+        return maxSpeed;
+    }
+
+    public void setMaxSpeed(int maxSpeed) {
+        this.maxSpeed = maxSpeed;
+    }
+
     int maxSpeed = 1;
 
     int hp = 0;

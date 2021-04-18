@@ -6,10 +6,12 @@ import GameEngine.UI.Components.TextBox;
 import GameEngine.UI.UI;
 import GameEngine.World.Entity;
 import GameEngine.World.Entitys.Astroid;
+import GameEngine.World.Entitys.AstroidPiece;
 import GameEngine.World.Entitys.Fog;
 import GameEngine.World.Entitys.Player;
 import GameEngine.World.Projectiles.MainingLaser;
 import GameEngine.World.Projectiles.Rocket;
+import GameEngine.World.Vector;
 import GameEngine.World.World;
 import Viewer.Renderer;
 import javafx.scene.input.KeyCode;
@@ -37,7 +39,7 @@ public class Game extends Frame implements Runnable{
         this.getUi().addComponent(new TextBox("Dolor Sit Amet", 10, 40));
 
         p = new Player(this);
-        p.setX(200);
+        p.setX(500);
         p.setY(0);
 
         f = new Fog(this);
@@ -48,17 +50,10 @@ public class Game extends Frame implements Runnable{
         Astroid a2 = new Astroid(this);
         a2.setX(0);
         a2.setY(0);
-        Astroid a3 = new Astroid(this);
-        a3.setX(-200);
-        a3.setY(0);
-        Astroid a4 = new Astroid(this);
-        a4.setX(-300);
-        a4.setY(0);
+
 
         this.getWorld().addEntity(a);
         this.getWorld().addEntity(a2);
-        this.getWorld().addEntity(a3);
-        this.getWorld().addEntity(a4);
         this.getWorld().addEntity(p);
         this.getWorld().addEntity(f);
         new Thread(this).start();
@@ -156,7 +151,16 @@ public class Game extends Frame implements Runnable{
                 f.setY(p.getY());
                 ArrayList<Entity> tempEnt = (ArrayList<Entity>)this.getWorld().getEntities().clone();
                 for (Entity e1: tempEnt) {
-                    if (e1.getClass() == Astroid.class && e1.getHp() <= 0) e1.setDelete(true);
+                    if (e1.getClass() == Astroid.class && e1.getHp() <= 0) {
+                        e1.setDelete(true);
+                        //GenerateAstroidPiece
+                        for (int i = 0; i < 3; i++) {
+                            double angle = Math.random() * 360;
+                            double length = Math.random() * 3;
+                            AstroidPiece piece = new AstroidPiece(this, e1, new Vector(Math.sin(Math.toRadians(angle)) * length, Math.cos(Math.toRadians(angle)) * length));
+                            this.getWorld().addEntity(piece);
+                        }
+                    }
                 }
 
                 tempEnt = (ArrayList<Entity>)this.getWorld().getEntities().clone();
@@ -174,6 +178,7 @@ public class Game extends Frame implements Runnable{
                     if (e1.isCanCollide()){
                         ArrayList<Entity> isColliding = new ArrayList<Entity>();
                         for (Entity e2 : tempEnt) {
+                            // && e2.getClass() == Astroid.class
                             if (e1 != e2 && e2.isCanCollide()) {
                                 if (e1.isColliding(e2)) {
                                     if (e1.getClass() == MainingLaser.class && e2 != p) {
