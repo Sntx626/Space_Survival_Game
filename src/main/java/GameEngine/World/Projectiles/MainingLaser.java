@@ -89,7 +89,13 @@ public class MainingLaser extends Entity {
         boolean isNotPlayer = e.getClass() != Player.class;
 
         if (e.getHitbox() == HITBOX.rect) {
-
+            double px = this.belongTo.getX(), py = this.belongTo.getY();
+            double endx = px + Math.sin(Math.toRadians(lastAngle)) * this.getW(), endy = py - Math.cos(Math.toRadians(lastAngle)) * this.getW();
+            boolean left =   lineToLine(new Vector(px, py), new Vector(endx, endy), new Vector(e.getX() - e.getW()/2, e.getY() - e.getH()/2), new Vector(e.getX() - e.getW()/2, e.getY() + e.getH()/2));
+            boolean right =  lineToLine(new Vector(px, py), new Vector(endx, endy), new Vector(e.getX() + e.getW()/2, e.getY() - e.getH()/2), new Vector(e.getX() + e.getW()/2, e.getY() + e.getH()/2));
+            boolean top =    lineToLine(new Vector(px, py), new Vector(endx, endy), new Vector(e.getX() - e.getW()/2, e.getY() - e.getH()/2), new Vector(e.getX() + e.getW()/2, e.getY() - e.getH()/2));
+            boolean bottom = lineToLine(new Vector(px, py), new Vector(endx, endy), new Vector(e.getX() - e.getW()/2, e.getY() + e.getH()/2), new Vector(e.getX() + e.getW()/2, e.getY() + e.getH()/2));
+            return left || right || top || bottom;
         } else {
             double px = this.belongTo.getX(), py = this.belongTo.getY();
             double endx = px + Math.sin(Math.toRadians(lastAngle)) * this.getW(), endy = py - Math.cos(Math.toRadians(lastAngle)) * this.getW();
@@ -112,7 +118,5 @@ public class MainingLaser extends Entity {
             double distance = Math.sqrt( (distX*distX) + (distY*distY) );
             return distance <= e.getW()/2.0;
         }
-
-        return false;
     }
 }
