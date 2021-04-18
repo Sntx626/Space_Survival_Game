@@ -18,6 +18,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Game extends Frame implements Runnable{
@@ -25,6 +26,9 @@ public class Game extends Frame implements Runnable{
     Player p;
     Fog f;
     boolean pw = false, ps = false, pa = false, pd = false;
+
+    int maxSpawnX = 0, maxSpawnY = 0;
+    int maxAstroids = 100;
 
     public Game(Renderer renderer) {
         super(renderer);
@@ -50,6 +54,9 @@ public class Game extends Frame implements Runnable{
 
         this.getWorld().addEntity(p);
         this.getWorld().addEntity(f);
+        this.maxSpawnX = this.getWorld().getCamera().getMaxZoomX() + 2000;
+        this.maxSpawnY = this.getWorld().getCamera().getMaxZoomY() + 2000;
+
         new Thread(this).start();
     }
 
@@ -157,7 +164,7 @@ public class Game extends Frame implements Runnable{
                     } else if (e1.getClass() == Astroid.class || e1.getClass() == AstroidPiece.class) {
 
                         Vector toHealthBarTarget = new Vector(this.p.getX()-e1.getX(), this.p.getY()-e1.getY());
-                        if (toHealthBarTarget.Length() > (9*80*3)/2) {
+                        if (toHealthBarTarget.Length() > this.maxSpawnX/2) {
                             e1.setDelete(true);
                         }
                     }
@@ -179,25 +186,44 @@ public class Game extends Frame implements Runnable{
                         countAstroids++;
                     }
                 }
-                int maxAstroids = 20;
                 while (countAstroids < maxAstroids) {
-                    double minX = this.p.getX() - (16*80*3)/2;
-                    double minY = this.p.getY() - (9*80*3)/2;
-                    double maxX = this.p.getX() + (16*80*3)/2;
-                    double maxY = this.p.getY() + (9*80*3)/2;
+                    double minX = this.p.getX() - this.maxSpawnX/2;
+                    double minY = this.p.getY() - this.maxSpawnY/2;
+                    double maxX = this.p.getX() + this.maxSpawnX/2;
+                    double maxY = this.p.getY() + this.maxSpawnY/2;
                     double fogSize = this.f.getW()/4;
-                    double x = Math.random() * (maxX-minX) + minX;
-                    double y = Math.random() * (maxY-minY) + minY;
-                    Vector toHealthBarTarget = new Vector(this.p.getX()-x, this.p.getY()-y);
-                    System.out.println(x + " " + y);
-                    while (toHealthBarTarget.Length() < fogSize) {
-                        x = Math.random() * (maxX-minX) + minX;
-                        y = Math.random() * (maxY-minY) + minY;
-                        toHealthBarTarget = new Vector(this.p.getX()-x, this.p.getY()-y);
+                    double x = 0;
+                    double y = 0;
+                    double r = 0;
+                    boolean found = false;
+                    while (!found) {
+                        x = Math.random() * (maxX - minX) + minX;
+                        y = Math.random() * (maxY - minY) + minY;
+                        r = (int)(Math.random() * (300 - 100) + 100);
+                        Vector toHealthBarTarget = new Vector(this.p.getX() - x, this.p.getY() - y);
+                        System.out.println(x + " " + y);
+                        while (toHealthBarTarget.Length() < fogSize) {
+                            x = Math.random() * (maxX - minX) + minX;
+                            y = Math.random() * (maxY - minY) + minY;
+                            toHealthBarTarget = new Vector(this.p.getX() - x, this.p.getY() - y);
+                        }
+                        tempEnt = (ArrayList<Entity>)this.getWorld().getEntities().clone();
+                        found = true;
+                        for (Entity e: tempEnt) {
+                            if (e.getClass() == Astroid.class) {
+                                Vector toAstroid = new Vector(x - e.getX(), y - e.getY());
+                                if (toAstroid.Length() <= e.getH() + r + 20) {
+                                    found = false;
+                                    break;
+                                }
+                            }
+                        }
                     }
                     Astroid a3 = new Astroid(this);
                     a3.setX(x);
                     a3.setY(y);
+                    a3.setH((int)r);
+                    a3.setW((int)r);
                     this.getWorld().addEntity(a3);
 
                     countAstroids++;

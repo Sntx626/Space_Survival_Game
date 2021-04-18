@@ -38,27 +38,23 @@ public class World{
 
     public void zoom(double delta) {
         if (canZoom) {
-            int minX = 16*40;
-            int minY = 9*40;
-            int maxX = 16*80*3;
-            int maxY = 9*80*3;
 
             Math.pow(delta, 2);
             delta /= 1;
             delta = (int)delta;
             camera.setH((int)(camera.getH() + (delta * 9)/10));
-            if (camera.getH() > maxY) {
-                camera.setH(maxY);
+            if (camera.getH() > camera.getMaxZoomY()) {
+                camera.setH(camera.getMaxZoomY());
             }
-            if (camera.getH() < minY) {
-                camera.setH(minY);
+            if (camera.getH() < camera.getMinZoomY()) {
+                camera.setH(camera.getMinZoomY());
             }
             camera.setW((int)(camera.getW() + (delta * 16)/10));
-            if (camera.getW() > maxX) {
-                camera.setW(maxX);
+            if (camera.getW() > camera.getMaxZoomX()) {
+                camera.setW(camera.getMaxZoomX());
             }
-            if (camera.getW() < minX) {
-                camera.setW(minX);
+            if (camera.getW() < camera.getMinZoomX()) {
+                camera.setW(camera.getMinZoomX());
             }
         }
     }
