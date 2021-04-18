@@ -96,6 +96,8 @@ public class Game extends Frame implements Runnable{
         if(key.getCode() == KeyCode.R){
             System.out.println("Rocked Fired");
             Rocket rocket = new Rocket(this, this.getWorld().getPlayer());
+            double playerAngle = this.getWorld().getPlayer().getLastAngle();
+            rocket.addForce(Math.sin(Math.toRadians(playerAngle))*5, Math.cos(Math.toRadians(playerAngle))*5);
             rocket.setZ_index(-1);
             this.getWorld().addEntity(rocket);
         }

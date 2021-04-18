@@ -12,34 +12,27 @@ public class Rocket extends Entity {
     Frame frame;
     Entity belongTo;
     boolean one = true;
+    double force;
 
     public Rocket(Frame frame, Entity belongTo) {
         super(frame);
         this.frame = frame;
         this.belongTo = belongTo;
+        this.setX(belongTo.getX());
+        this.setY(belongTo.getY());
+        this.setH(64);
+        this.setW(64);
     }
 
     @Override
     public void render(GraphicsContext gc, int cx, int cy, int cw, int ch, int w, int h, int mx, int my) {
-        this.setX(belongTo.getX());
-        this.setY(belongTo.getY());
-        double speed = 5;
 
+        Vector pos = this.getViewPortCords(cx, cy, cw, ch, w, h);
 
-        Vector rocketCord = belongTo.getViewPortCords(cx, cy, cw, ch, w, h);
-
-        double factorY = (double)h / (double)ch;
-        double factorX = (double)w / (double)cw;
 
         gc.save();
-        //if(one){
-            double angle = belongTo.getAngleToMouse(cx, cy, cw, ch, w, h, mx, my);
-            gc.rotate(angle);
-            one = false;
-        //}
-        gc.translate(rocketCord.getX()*factorX, rocketCord.getY()*factorY);
         gc.setFill(Color.GREENYELLOW);
-        gc.fillRect(rocketCord.getX(), rocketCord.getY(), 64*factorX,64*factorY);
+        gc.fillRect(pos.getX() ,pos.getY(),this.getW(),this.getH());
         gc.restore();
     }
 }
